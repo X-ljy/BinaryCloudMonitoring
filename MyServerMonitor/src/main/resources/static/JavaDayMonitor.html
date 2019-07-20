@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SeverMonitor</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!--引入layui-->
+    <script  src="dist/js/layui/layui.all.js"></script>
+    <link rel="stylesheet" href="dist/js/layui/css/layui.css">
+    <link rel="stylesheet" href="dist/css/alibaba/iconfont.css">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="index.html" class="nav-link">Home</a>
+            </li>
+        </ul>
+
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+                <a class="nav-link" onclick="logout()">
+                    <i class="fa fa-lg fa-sign-out"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
+                        class="fa fa-lg fa-th-large"></i></a>
+            </li>
+        </ul>
+    </nav>
+    <!-- /.navbar -->
+
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4" id="SideBar">
+        <!-- Brand Logo -->
+        <a href="index.html" class="brand-link">
+            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                 style="opacity: .8">
+            <span class="brand-text font-weight-light">Binary</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="dist/img/avatar04.png" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">管理员</a>
+                    <a href="accountset.html" class="d-block" id="account" >账号设置</a>
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                         with font-awesome or any other icon font library -->
+                    <li  class="nav-item" >
+                        <a href="index.html" class="nav-link"id="index">
+                            <i class="fa fa-dashboard nav-icon"></i>
+                            <p>首页</p>
+                        </a>
+                    </li>
+
+                    <li  class="nav-item" >
+                        <a href="hostlist.html" class="nav-link" id="hostList">
+                            <i class="fa fa-server nav-icon"></i>
+                            <p>服务器列表</p>
+                        </a>
+                    </li>
+
+                    <li  class="nav-item" >
+                        <a href="imagelist.html" class="nav-link" id="imageList">
+                            <i class="fa fa-bullseye nav-icon"></i>
+                            <p>镜像管理</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="" class="nav-link" id="monitor">
+                            <i class="nav-icon fa fa-eye"></i>
+                            <p>
+                                <i class="right fa fa-angle-left"></i>
+                                服务器监控
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="basehostlist.html" class="nav-link" id="baseMonitor">
+                                    <i class="fa fa-tag nav-icon"></i>
+                                    <p>基础性能监控</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="prochostlist.html" class="nav-link" id="processMonitor">
+                                    <i class="fa fa-tag nav-icon"></i>
+                                    <p>进程监控</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview">
+                        <a href="" class="nav-link" id="appmonitor">
+                            <i class="nav-icon fa fa-cubes"></i>
+                            <p>
+                                <i class="right fa fa-angle-left"></i>
+                                应用服务监控
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="mysqlMonitor.html" class="nav-link" id="MysqlMonitor">
+                                    <i class="fa fa-tag nav-icon"></i>
+                                    <p>MySQL性能监控</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javaMonitor.html" class="nav-link" id="javaMonitor">
+                                    <i class="fa fa-tag nav-icon"></i>
+                                    <p>Tomcat性能监控</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javaThread.html" class="nav-link" id="threadMonitor">
+                                    <i class="fa fa-tag nav-icon"></i>
+                                    <p>JVM线程信息</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li  class="nav-item" >
+                        <a href="network.html" class="nav-link" id="network">
+                            <i class="fa fa-rss nav-icon"></i>
+                            <p>网络管理</p>
+                        </a>
+                    </li>
+
+                    <li  class="nav-item" >
+                        <a href="storage.html" class="nav-link" id="storage">
+                            <i class="fa fa-database nav-icon"></i>
+                            <p>存储管理</p>
+                        </a>
+                    </li>
+                    <li  class="nav-item" >
+                        <a href="snap.html" class="nav-link" id="snap">
+                            <i class="fa fa-camera nav-icon"></i>
+                            <p>快照管理</p>
+                        </a>
+                    </li>
+                    <li  class="nav-item" >
+                        <a href="logmanager.html" class="nav-link" id="logImport">
+                            <i class="fa fa-cloud-download nav-icon"></i>
+                            <p>日志管理</p>
+                        </a>
+                    </li>
+                    <li  class="nav-item" >
+                        <a href="firewalllist.html" class="nav-link" id="firewalllist">
+                            <i class="fa fa-outdent nav-icon"></i>
+                            <p>防火墙</p>
+                        </a>
+                    </li>
+                    <li class="nav-item has-treeview">
+                        <a href="" class="nav-link" id="monitor1">
+                            <i class="nav-icon fa fa-bell"></i>
+                            <p>
+                                <i class="right fa fa-angle-left"></i>
+                                监控告警
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="ruleslist.html" class="nav-link" id="ruleList">
+                                    <i class="fa fa-tag nav-icon"></i>
+                                    <p>告警规则</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="rulesRecord.html" class="nav-link" id="ruleRecord">
+                                    <i class="fa fa-tag nav-icon"></i>
+                                    <p>告警记录</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li  class="nav-item" >
+                        <a href="webshell.html" class="nav-link" id="webshell">
+                            <i class="fa fa-gears nav-icon"></i>
+                            <p>WebShell</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Tomcat应用性能监</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="index.html">首页</a></li>
+                            <li class="breadcrumb-item active">Tomcat应用性能监控</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <div class="layui-row">
+            <div class="layui-col-md-offset10">
+                <div class="layui-btn-group">
+                    <button type="button" onclick="hourbase()" class="layui-btn layui-btn-primary layui-btn-sm layui-btn-">一小时</button>
+                    <button type="button" onclick="daybase()" class="layui-btn layui-btn layui-btn-sm">一天</button>
+                    <button type="button" onclick="weekbase()" class="layui-btn layui-btn-primary layui-btn-sm">一周</button>
+                    <button type="button" onclick="refresh()" class="layui-btn layui-btn-primary layui-btn-sm"><i class="iconfont icon-jiankong-"></i></button>
+                </div>
+            </div>
+
+        </div>
+        <hr class="layui-bg-blue">
+        <div><br></div>
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- DONUT CHART -->
+                        <div class="card card-secondary">
+                            <div class="card-header">
+                                <h3 class="card-title">CPU使用率</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div  class="card-body" style="display: inline-block">
+                                    <div id="CpuUseRate" class="chart" style="margin:0 auto;border:1px solid #fffffa;width:1050px;height:400px">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+
+                        <!-- DONUT CHART -->
+                        <div class="card card-secondary">
+                            <div class="card-header">
+                                <h3 class="card-title">堆内存监控</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div  class="card-body" style="display: inline-block">
+                                    <div id="heapmonitor" class="chart" style="margin:0 auto;border:1px solid #fffffa;width:1050px;height:400px">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+
+                        <div class="card card-secondary">
+                            <div class="card-header">
+                                <h3 class="card-title">类装载情况监控</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div  class="card-body" style="display: inline-block">
+                                    <div id="classmonitor" class="chart" style="margin:0 auto;border:1px solid #fffffa;width:1050px;height:400px">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+
+                        <div class="card card-secondary">
+                            <div class="card-header">
+                                <h3 class="card-title">线程监控</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div  class="card-body" style="display: inline-block">
+                                    <div id="threadmonitor" class="chart" style="margin:0 auto;border:1px solid #fffffa;width:1050px;height:400px">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.col (RIGHT) -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Add Content Here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+<!-- 引入 ECharts 文件 -->
+<script src="dist/js/plugins/echarts4/echarts.min.js"></script>
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS 1.0.1 -->
+<script src="plugins/chartjs-old/Chart.min.js"></script>
+<!-- FastClick -->
+<script src="plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- page script -->
+<!-- 引入Echarts4-->
+<script src="dist/js/plugins/echarts4/echarts.min.js"></script>
+<script>
+    //url传值
+    var urlValue = window.location.href;
+    urlValue = urlValue.split("?");
+
+    var hostid = urlValue[1];
+    var hostip = urlValue[1];
+
+</script>
+<script type="text/javascript">
+    //url传值
+    var urlValue = window.location.href;
+    urlValue = urlValue.split("?");
+
+    var hostid = urlValue[1];
+    console.log("url : "+ hostid);
+
+    // 基于准备好的dom，初始化echarts实例
+    var cpuChart = echarts.init(document.getElementById('CpuUseRate'));
+
+    // 指定图表的配置项和数据
+    // 显示标题，图例和空的坐标轴
+    cpuChart.setOption({
+        title: {
+            text: 'CPU数据',
+        },
+        tooltip: {
+            trigger: 'axis',
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        legend: {
+            data:['单位：%']
+        },
+        xAxis: {
+            data: []
+        },
+        yAxis: {},
+        series: [{
+            name: '单位：%',
+            type: 'line',
+            areaStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+                    color: 'rgb(255, 158, 68)'
+                }, {
+                    offset: 1,
+                    color: 'rgb(255, 70, 131)'
+                }])
+            },
+            data: []
+        }],
+        dataZoom:{
+            realtime:true, //拖动滚动条时是否动态的更新图表数据
+            height:25,//滚动条高度
+            start:40,//滚动条开始位置（共100等份）
+            end:65//结束位置（共100等份）
+        }
+
+    });
+
+    cpuChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
+
+    var xCpu=[];    //类别数组（实际用来盛放X轴坐标值）
+    var yCpu=[];    //数据数组（实际用来盛放Y坐标值）
+    $.ajax({
+        type : "post",
+        async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "/getDayJavaCpuUseRate",    //请求发送到TestServlet处
+        data : {"id":hostid},
+        dataType : "json",        //返回数据形式为json
+        success : function(result) {
+            //请求成功时执行该函数内容，result即为服务器返回的json对象
+            console.log(result);
+            if (result) {
+                result = result.reverse();
+
+                for(var i=0;i<result.length;i++){
+                    xCpu.push(result[i].date.substr(11,18));    //x轴数据
+                }
+                for(var i=0;i<result.length;i++){
+
+                    yCpu.push(result[i].cpuUseRate);    //y轴数据
+                }
+                cpuChart.hideLoading();    //隐藏加载动画
+                cpuChart.setOption({        //加载数据图表
+                    xAxis: {
+                        type: 'category',
+                        data: xCpu,
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        type: 'line',
+                        data: yCpu
+                    }]
+                });
+
+            }
+
+        },
+        error : function(errorMsg) {
+            //请求失败时执行该函数
+            alert("图表请求数据失败!");
+            cpuChart.hideLoading();
+        }
+    })
+</script>
+<script type="text/javascript">
+    //url传值
+    var urlValue = window.location.href;
+    urlValue = urlValue.split("?");
+
+    var hostid = urlValue[1];
+    console.log("url : "+ hostid);
+
+    // 基于准备好的dom，初始化echarts实例
+    var ipInflowChart = echarts.init(document.getElementById('classmonitor'));
+
+    // 指定图表的配置项和数据
+    // 显示标题，图例和空的坐标轴
+    ipInflowChart.setOption({
+        title: {
+            text: '类装载载数据'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        legend: {
+            data:['已加载类总数','已加载当前类','已卸载类总数']
+        },
+        xAxis: {
+            data: []
+        },
+        yAxis: {},
+        series: [
+            {
+                name: '已加载类总数',
+                type: 'line',
+                // areaStyle: {},
+                data: []
+            },
+            {
+                name: '已加载当前类',
+                type: 'line',
+                // areaStyle: {},
+                data: []
+            },
+            {
+                name: '已卸载类总数',
+                type: 'line',
+                // areaStyle: {},
+                data: []
+            }
+        ],
+        dataZoom:{
+            realtime:true, //拖动滚动条时是否动态的更新图表数据
+            height:25,//滚动条高度
+            start:40,//滚动条开始位置（共100等份）
+            end:65//结束位置（共100等份）
+        }
+
+    });
+
+    ipInflowChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
+
+    var xIpInflow =[];    //类别数组（实际用来盛放X轴坐标值）
+    var yIpInflow1=[];    //数据数组（实际用来盛放Y坐标值）
+    var yIpInflow2=[];    //数据数组（实际用来盛放Y坐标值）
+    var yIpInflow3=[];    //数据数组（实际用来盛放Y坐标值）
+    $.ajax({
+        type : "post",
+        async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "/getDayClassLoadingInfo",    //请求发送到TestServlet处
+        data : {"id":hostid},
+        dataType : "json",        //返回数据形式为json
+        success : function(result) {
+            //请求成功时执行该函数内容，result即为服务器返回的json对象
+            if (result) {
+                result = result.reverse();
+
+                for(var i=0;i<result.length;i++){
+                    var temp = result[i].date.substr(11,18);
+                    xIpInflow.push(temp);    //x轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yIpInflow1.push(result[i].totalLoadedClassCount);    //y轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yIpInflow2.push(result[i].loadedClassCount);    //y轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yIpInflow3.push(result[i].unloadedClassCount);    //y轴数据
+                }
+
+                ipInflowChart.hideLoading();    //隐藏加载动画
+                ipInflowChart.setOption({        //加载数据图表
+                    xAxis: {
+                        type: 'category',
+                        data: xIpInflow,
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name: '已加载类总数',
+                            type: 'line',
+                            data: yIpInflow1
+                        },
+                        {
+                            name: '已加载当前类',
+                            type: 'line',
+                            data: yIpInflow2
+                        },
+                        {
+                            name: '已卸载类总数',
+                            type: 'line',
+                            data: yIpInflow3
+                        }
+                    ]
+                });
+
+            }
+
+        },
+        error : function(errorMsg) {
+            //请求失败时执行该函数
+            alert("图表请求数据失败!");
+            ipInflowChart.hideLoading();
+        }
+    })
+</script>
+<script type="text/javascript">
+    //url传值
+    var urlValue = window.location.href;
+    urlValue = urlValue.split("?");
+
+    var hostid = urlValue[1];
+    console.log("url : "+ hostid);
+
+    // 基于准备好的dom，初始化echarts实例
+    var ipOutflowChart = echarts.init(document.getElementById('heapmonitor'));
+
+    // 指定图表的配置项和数据
+    // 显示标题，图例和空的坐标轴
+    ipOutflowChart.setOption({
+        title: {
+            text: '堆内存监控'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        // legend: {
+        //     data:['堆最大限(MB)','堆已使用(MB)','堆已申请(MB)','堆使用率(%)','非堆初始(MB)','非堆已使用(MB)','非堆已申请(MB)','非堆使用率(%)']
+        // },
+        xAxis: {
+            data: []
+        },
+        yAxis: {},
+        series: [
+            {
+                name: '堆最大限(MB)',
+                type: 'line',
+                data: []
+            },
+            {
+                name: '堆已使用(MB)',
+                type: 'line',
+                data: []
+            },
+            {
+                name: '堆已申请(MB)',
+                type: 'line',
+                data: []
+            },
+            {
+                name: '堆使用率(%)',
+                type: 'line',
+                data: []
+            },
+            {
+                name: '非堆初始(MB)',
+                type: 'line',
+                data: []
+            },
+            {
+                name: '非堆已使用(MB)',
+                type: 'line',
+                data: []
+            },
+            {
+                name: '非堆已申请(MB)',
+                type: 'line',
+                data: []
+            },
+            {
+                name: '非堆使用率(%)',
+                type: 'line',
+                data: []
+            }
+        ],
+        dataZoom:{
+            realtime:true, //拖动滚动条时是否动态的更新图表数据
+            height:25,//滚动条高度
+            start:40,//滚动条开始位置（共100等份）
+            end:65//结束位置（共100等份）
+        }
+
+    });
+
+    ipOutflowChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
+
+    var xIpOutflow=[];    //类别数组（实际用来盛放X轴坐标值）
+    var yIpOutflow1=[];    //数据数组（实际用来盛放Y坐标值）
+    var yIpOutflow2=[];    //数据数组（实际用来盛放Y坐标值）
+    var yIpOutflow3=[];    //数据数组（实际用来盛放Y坐标值）
+    var yIpOutflow4=[];    //数据数组（实际用来盛放Y坐标值）
+    var yIpOutflow5=[];    //数据数组（实际用来盛放Y坐标值）
+    var yIpOutflow6=[];    //数据数组（实际用来盛放Y坐标值）
+    var yIpOutflow7=[];    //数据数组（实际用来盛放Y坐标值）
+    var yIpOutflow8=[];    //数据数组（实际用来盛放Y坐标值）
+
+    $.ajax({
+        type : "post",
+        async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "/getDayMemoryInfo",    //请求发送到TestServlet处
+        data : {"id":hostid},
+        dataType : "json",        //返回数据形式为json
+        success : function(result) {
+            console.log(result);
+            //请求成功时执行该函数内容，result即为服务器返回的json对象
+            if (result) {
+                result = result.reverse();
+                for(var i=0;i<result.length;i++){
+                    var temp = result[i].date.substr(11,18);
+                    xIpOutflow.push(temp);    //x轴数据
+                }
+
+                for(var i=0;i<result.length;i++){
+                    yIpOutflow1.push((parseInt(result[i].heapMax)/(1024*1024)).toFixed(2));    //y轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yIpOutflow2.push((parseInt(result[i].heapUsed)/(1024*1024)).toFixed(2));    //y轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yIpOutflow3.push((parseInt(result[i].heapCommitted)/(1024*1024)).toFixed(2));    //y轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yIpOutflow4.push(result[i].heapUseRate);    //y轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yIpOutflow5.push((parseInt(result[i].noHeapInit)/(1024*1024)).toFixed(2));    //y轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yIpOutflow6.push((parseInt(result[i].noHeapUsed)/(1024*1024)).toFixed(2));    //y轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yIpOutflow7.push((parseInt(result[i].noHeapCommitted)/(1024*1024)).toFixed(2));    //y轴数据
+                }
+
+                for(var i=0;i<result.length;i++){
+                    yIpOutflow8.push(result[i].noHeapUseRate);    //y轴数据
+                }
+
+                ipOutflowChart.hideLoading();    //隐藏加载动画
+                ipOutflowChart.setOption({        //加载数据图表
+                    xAxis: {
+                        type: 'category',
+                        data: xIpOutflow,
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name: '堆最大限(MB)',
+                            type: 'line',
+                            data: yIpOutflow1
+                        },
+                        {
+                            name: '堆已使用(MB)',
+                            type: 'line',
+                            data: yIpOutflow2
+                        },
+                        {
+                            name: '堆已申请(MB)',
+                            type: 'line',
+                            data: yIpOutflow3
+                        },
+                        {
+                            name: '堆使用率(%)',
+                            type: 'line',
+                            data: yIpOutflow4
+                        },
+                        {
+                            name: '非堆初始(MB)',
+                            type: 'line',
+                            data: yIpOutflow5
+                        },
+                        {
+                            name: '非堆已使用(MB)',
+                            type: 'line',
+                            data: yIpOutflow6
+                        },
+                        {
+                            name: '非堆已申请(MB)',
+                            type: 'line',
+                            data: yIpOutflow7
+                        },
+                        {
+                            name: '非堆使用率(%)',
+                            type: 'line',
+                            data: yIpOutflow8
+                        }
+                    ]
+                });
+
+            }
+
+        },
+        error : function(errorMsg) {
+            //请求失败时执行该函数
+            alert("图表请求数据失败!");
+            ipOutflowChart.hideLoading();
+        }
+    })
+</script>
+<script type="text/javascript">
+    //url传值
+    var urlValue = window.location.href;
+    urlValue = urlValue.split("?");
+
+    var hostid = urlValue[1];
+    console.log("url : "+ hostid);
+
+    // 基于准备好的dom，初始化echarts实例
+    var WriteIoChart = echarts.init(document.getElementById('threadmonitor'));
+
+    // 指定图表的配置项和数据
+    // 显示标题，图例和空的坐标轴
+    WriteIoChart.setOption({
+        title: {
+            text: 'java线程数据'
+        },
+        legend: {
+            data:['实时线程','守护线程']
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            data: []
+        },
+        yAxis: {},
+        series: [
+            {
+                name: '实时线程',
+                type: 'line',
+                color:'#228B22',
+                type: 'line',
+                lineStyle:{
+                    normal:{
+                        color:"#228B22",
+                    }
+                },
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#228B22'
+                        }, {
+                            offset: 1,
+                            color: '#ffe'
+                        }])
+                    }
+                },
+                data: []
+            }, {
+                name: '守护线程',
+                type: 'line',
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#8ec6ad'
+                        }, {
+                            offset: 1,
+                            color: '#ffe'
+                        }])
+                    }
+                },
+                data: [],
+            }
+        ],
+        dataZoom:{
+            realtime:true, //拖动滚动条时是否动态的更新图表数据
+            height:25,//滚动条高度
+            start:40,//滚动条开始位置（共100等份）
+            end:65//结束位置（共100等份）
+        }
+
+    });
+
+    WriteIoChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
+
+    var xWriteIo=[];    //类别数组（实际用来盛放X轴坐标值）
+    var yWriteIo1=[];    //数据数组（实际用来盛放Y坐标值）
+    var yWriteIo2=[];
+    $.ajax({
+        type : "post",
+        async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "/getDayThreadInfo",    //请求发送到TestServlet处
+        data : {"id":hostid},
+        dataType : "json",        //返回数据形式为json
+        success : function(result) {
+            //请求成功时执行该函数内容，result即为服务器返回的json对象
+            console.log(result);
+            if (result) {
+                result = result.reverse();
+                console.log(result);
+                for(var i=0;i<result.length;i++){
+                    xWriteIo.push(result[i].date.substr(11,18));    //x轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yWriteIo1.push(result[i].aliveThreadCount);    //y轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yWriteIo2.push(result[i].daemonThreadCount);    //y轴数据
+                }
+                WriteIoChart.hideLoading();    //隐藏加载动画
+                WriteIoChart.setOption({        //加载数据图表
+                    xAxis: {
+                        type: 'category',
+                        data: xWriteIo,
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name: '实时线程',
+                            type: 'line',
+                            data: yWriteIo1
+                        }, {
+                            name: '守护线程',
+                            type: 'line',
+                            data: yWriteIo2
+                        }
+                    ]
+                });
+
+            }
+
+        },
+        error : function(errorMsg) {
+            //请求失败时执行该函数
+            alert("图表请求数据失败!");
+            WriteIoChart.hideLoading();
+        }
+    })
+</script>
+
+<script>
+    noticeEveryFive();
+    $(document).ready(function () {
+        setInterval("noticeEveryFive()",1000*60*5);
+    });
+
+    function noticeEveryFive() {
+        $.ajax({
+            url: "/warn/notice",
+            type: "post",
+            dataType: "json",
+            success:function (data) {
+                console.log(data);
+                if (data.status == "warn"){
+                    layer.msg(data.reason, {
+                        icon: 3,
+                        time: 20000, //20s后自动关闭
+                        btn: ['WebShell','取消'],
+                        yes: function () {
+                            window.location.href = 'webshell.html';
+                        },
+                        btn2:function () {
+                            layer.close();
+                        },
+                    });
+                }
+            }
+        });
+    }
+
+</script>
+
+<script>
+    function logout() {
+        $.ajax({
+            url: "/logout",
+            type: "post",
+            dataType: "text",
+            success:function (data) {
+                layer.msg(data);
+                setTimeout(function () {
+                    window.location.href='login.html';
+                },1500);
+            }
+        });
+    }
+</script>
+
+<script>
+    function hourbase() {
+        window.location.href='JavaHourMonitor.html?'+hostip;
+    }
+    function daybase() {
+        window.location.href='JavaDayMonitor.html?'+hostip;
+    }
+    function weekbase() {
+        window.location.href='JavaWeekMonitor.html?'+hostip;
+    }
+    function refresh() {
+        window.location.reload();
+    }
+</script>
+
+</body>
+</html>

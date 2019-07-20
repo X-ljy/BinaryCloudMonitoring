@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>注册页面</title>
+
+  <!-- Set render engine for 360 browser -->
+  <meta name="renderer" content="webkit">
+  <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+  <!--
+  <link rel="canonical" href="http://www.example.com/">
+  -->
+  <link rel="stylesheet" href="assets/css/amazeui.min.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <script src="assets/js/gVerify.js"></script>
+</head>
+<body>
+<header>
+  <div class="log-re">
+    <button type="button" onclick="relogin()" class="am-btn am-btn-default am-radius log-button" href="/login.html">登 录</button>
+  </div> 
+</header>
+
+<div class="log"> 
+  <div class="am-g">
+  <div class="am-u-lg-3 am-u-md-6 am-u-sm-8 am-u-sm-centered log-content">
+    <h1 class="log-title am-animation-slide-top">华云公有云监控</h1>
+    <br>
+    <form class="am-form" id="register">
+      <div class="am-input-group am-radius am-animation-slide-left">       
+        <input type="email" name="email" id="doc-vld-email-2-1" class="am-radius" data-validation-message="请输入正确邮箱地址" placeholder="邮箱" required/>
+        <span class="am-input-group-label log-icon am-radius"><i class="am-icon-user am-icon-sm am-icon-fw"></i></span>
+      </div>
+      <br>
+      <div class="am-input-group am-animation-slide-left log-animation-delay">       
+        <input type="password" name="password" id="password" class="am-form-field am-radius log-input" placeholder="密码" minlength="11" required>
+        <span class="am-input-group-label log-icon am-radius"><i class="am-icon-lock am-icon-sm am-icon-fw"></i></span>
+      </div>
+      <br>   
+      <div class="am-input-group am-animation-slide-left log-animation-delay-a">       
+        <input type="password" name="passwords" id="passwords" data-equal-to="#log-password" class="am-form-field am-radius log-input" placeholder="确认密码" data-validation-message="请确认密码一致" required>
+        <span class="am-input-group-label log-icon am-radius"><i class="am-icon-lock am-icon-sm am-icon-fw"></i></span>
+      </div>
+      <br>
+        <div class="am-input-group am-animation-slide-left log-animation-delay">
+            <input type="text" class="am-form-field am-radius log-input" id="code_input" placeholder="验证码" minlength="4" required>
+            <span class="am-input-group-label log-icon am-radius"><i class="am-icon-file-image-o am-icon-sm am-icon-fw"></i></span>
+        </div>
+        <br>
+        <div class="am-input-group am-animation-slide-left log-animation-delay">
+            <div id="v_container" style="width: 200px;height: 50px;"></div>
+        </div>
+        <br>
+      <button type="button" onclick="register()" class="am-btn am-btn-primary am-btn-block am-btn-lg am-radius am-animation-slide-bottom log-animation-delay-b">注 册</button>
+      <br>
+    </form>
+  </div>
+  </div>
+  <footer class="log-footer">   
+
+  </footer>
+</div>
+
+
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+<script src="assets/js/app.js"></script>
+<!--引入验证码-->
+<script src="assets/js/gVerify.js"></script>
+<!--引入layui -->
+<link rel="stylesheet" href="assets/layui/css/layui.css">
+<script src="assets/layui/layui.all.js"></script>
+<script>
+    var verifyCode = new GVerify("v_container");
+
+    function register() {
+        var res = verifyCode.validate(document.getElementById("code_input").value);
+        var layer = layui.layer,form = layui.form;
+        var password = document.getElementById("password").value;
+        var passwords = document.getElementById("passwords").value;
+        if(res){
+            console.log(password);
+            console.log(passwords);
+            if (password === passwords){
+                $.ajax({
+                    //几个参数需要注意一下
+                    type: "POST",//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: "/user/register" ,//url
+                    data: $('#register').serialize(),
+                    dataType: "text",
+                    success: function (data) {
+                        console.log(data);//打印服务端返回的数据(调试用)
+                        if (data=="index") {
+                            layer.msg('注册成功');
+                            window.location.href='/login.html';
+                        }
+                        else if (data=="error"){
+                            layer.msg('注册失败请重新注册');
+                        }
+                    },
+                });
+            }else {
+                layer.msg('两次密码输入不一致');
+            }
+
+        }else{
+            layer.msg('验证码错误');
+        }
+    }
+
+
+</script>
+<script>
+    function relogin() {
+        window.location.href='/login.html';
+
+    }
+
+</script>
+</body>
+</html>

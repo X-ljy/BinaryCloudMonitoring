@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SeverMonitor</title>    <meta charset="utf-8">
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="OneProcInfo" style="margin:0 auto;border:1px solid #fffffa;width:800px;height:500px;color: #0b76ac" ></div>
+<!-- 引入 ECharts 文件 -->
+<script src="dist/js/plugins/echarts4/echarts.min.js"></script>
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+    //url传值
+    var urlValue = window.location.href;
+    urlValue = urlValue.split("?");
+
+    var hostip = urlValue[1].split("=")[1];
+    console.log("url : "+ hostip);
+
+    var pid = urlValue[2].split("=")[1];
+    console.log("url : "+ pid);
+
+    function getOneProcInfo() {
+        var oneProcInfo = echarts.init(document.getElementById('OneProcInfo'));
+        optionOneProcInfo = {
+            title: {
+                text: ''
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            dataZoom: [
+                {
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                    start: 0,
+                    end: 100,
+                    zoomOnMouseWheel: 'shift',
+                    slider:{
+                        bottom: '0'
+                    }
+                },
+            ],
+            legend: {
+                data:['CPU使用率：%','内存使用率：%']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : []
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'CPU使用率：%',
+                    type:'line',
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#0082ff'
+                            }, {
+                                offset: 1,
+                                color: '#fff1f1'
+                            }]),
+                            left:'left',
+                        }
+                    },
+                    data:[]
+                },
+                {
+                    name:'内存使用率：%',
+                    type:'line',
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#5dff00'
+                            }, {
+                                offset: 1,
+                                color: '#ffe'
+                            }]),
+                            left:'left',
+                        }
+                    },
+                    data:[]
+                },
+            ]
+        };
+
+        $.ajax({
+            url: "/getOneProcessInfo",
+            type: "post",
+            data: {"hostip": hostip,"pid":pid},
+            async: false,
+            datatype: "json",
+            success: function (data) {
+                console.log(data);
+                var j = 0;
+                for (var i=data.length-1;i>=0;i--){
+                    optionOneProcInfo.series[0].data[j] = data[i].cpu;
+                    optionOneProcInfo.series[1].data[j] = data[i].mem;
+                    optionOneProcInfo.xAxis[0].data[j] = data[i].date;
+                    j = j +1;
+                }
+            }
+        });
+        oneProcInfo.setOption(optionOneProcInfo,true);
+    }
+    getOneProcInfo();
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: DataCollection
+#  data:
+#    elasticsearch:
+#      cluster-name: MyServerMonitorES
+#      cluster-nodes: 10.10.44.127:9300,10.10.44.128:9300,10.10.44.129:9300
+#数据库设置
+  datasource:
+    url: jdbc:mysql://10.10.44.121:3307/server_monitor?serverTimezone=GMT%2B8
+    username: root
+    password: 1511995754
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate.ddl-auto: update
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+
+#kafka设置
+  kafka:
+    producer:
+      acks: all #acks:消息的确认机制，默认值是0，
+                #acks=0：如果设置为0，生产者不会等待kafka的响应。
+                #acks=1：这个配置意味着kafka会把这条消息写到本地日志文件中，但是不会等待集群中其他机器的成功响应。
+                #acks=all：这个配置意味着leader会等待所有的follower同步完成。这个确保消息不会丢失，除非kafka集群中所有机器挂掉。这是最强的可用性保证。
+      retries: 0 #发送失败重试次数，配置为大于0的值的话，客户端会在消息发送失败时重新发送。
+      batch-size: 16384 #当多条消息需要发送到同一个分区时，生产者会尝试合并网络请求。这会提高client和生产者的效率。
+      buffer-memory: 33554432 #即32MB的批处理缓冲区
+      linger-ms: 1
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      bootstrap-servers: 10.10.44.127:9092,10.10.44.128:9092,10.10.44.129:9092
+
+    consumer:
+      enable-auto-commit: false
+      group-id: test-consumer-group
+      auto-offset-reset: latest
+      bootstrap-servers: 10.10.44.127:9092,10.10.44.128:9092,10.10.44.129:9092
+
+logging:
+  level:
+    root: info

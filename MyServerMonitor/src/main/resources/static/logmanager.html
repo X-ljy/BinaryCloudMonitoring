@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SeverMonitor</title>  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker-bs3.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="plugins/iCheck/all.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="plugins/colorpicker/bootstrap-colorpicker.min.css">
+  <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="plugins/timepicker/bootstrap-timepicker.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="plugins/select2/select2.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!--引入layui-->
+    <script  src="dist/js/layui/layui.all.js"></script>
+    <link rel="stylesheet" href="dist/js/layui/css/layui.css">
+
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="index.html" class="nav-link">Home</a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+
+        <li class="nav-item">
+            <a class="nav-link" onclick="logout()">
+                <i class="fa fa-lg fa-sign-out"></i>
+            </a>
+        </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
+                class="fa fa-lg fa-th-large"></i></a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4" id="SideBar">
+        <!-- Brand Logo -->
+        <a href="index.html" class="brand-link">
+            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                 style="opacity: .8">
+            <span class="brand-text font-weight-light">Binary</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="dist/img/avatar04.png" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">管理员</a>
+                    <a href="accountset.html" class="d-block" id="account" >账号设置</a>
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                         with font-awesome or any other icon font library -->
+                    <li  class="nav-item" >
+                        <a href="index.html" class="nav-link"id="index">
+                            <i class="fa fa-dashboard nav-icon"></i>
+                            <p>首页</p>
+                        </a>
+                    </li>
+
+                    <li  class="nav-item" >
+                        <a href="hostlist.html" class="nav-link" id="hostList">
+                            <i class="fa fa-server nav-icon"></i>
+                            <p>服务器列表</p>
+                        </a>
+                    </li>
+
+                    <li  class="nav-item" >
+                        <a href="imagelist.html" class="nav-link" id="imageList">
+                            <i class="fa fa-bullseye nav-icon"></i>
+                            <p>镜像管理</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="" class="nav-link" id="monitor">
+                            <i class="nav-icon fa fa-eye"></i>
+                            <p>
+                                <i class="right fa fa-angle-left"></i>
+                                服务器监控
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="basehostlist.html" class="nav-link" id="baseMonitor">
+                                    <i class="fa fa-tag nav-icon"></i>
+                                    <p>基础性能监控</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="prochostlist.html" class="nav-link" id="processMonitor">
+                                    <i class="fa fa-tag nav-icon"></i>
+                                    <p>进程监控</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview">
+                        <a href="" class="nav-link" id="appmonitor">
+                            <i class="nav-icon fa fa-cubes"></i>
+                            <p>
+                                <i class="right fa fa-angle-left"></i>
+                                应用服务监控
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="mysqlMonitor.html" class="nav-link" id="MysqlMonitor">
+                                    <i class="fa fa-tag nav-icon"></i>
+                                    <p>MySQL性能监控</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javaMonitor.html" class="nav-link" id="javaMonitor">
+                                    <i class="fa fa-tag nav-icon"></i>
+                                    <p>Tomcat性能监控</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javaThread.html" class="nav-link" id="threadMonitor">
+                                    <i class="fa fa-tag nav-icon"></i>
+                                    <p>JVM线程信息</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li  class="nav-item" >
+                        <a href="network.html" class="nav-link" id="network">
+                            <i class="fa fa-rss nav-icon"></i>
+                            <p>网络管理</p>
+                        </a>
+                    </li>
+
+                    <li  class="nav-item" >
+                        <a href="storage.html" class="nav-link" id="storage">
+                            <i class="fa fa-database nav-icon"></i>
+                            <p>存储管理</p>
+                        </a>
+                    </li>
+                    <li  class="nav-item" >
+                        <a href="snap.html" class="nav-link" id="snap">
+                            <i class="fa fa-camera nav-icon"></i>
+                            <p>快照管理</p>
+                        </a>
+                    </li>
+                    <li  class="nav-item" >
+                        <a href="logmanager.html" class="nav-link" id="logImport">
+                            <i class="fa fa-cloud-download nav-icon"></i>
+                            <p>日志管理</p>
+                        </a>
+                    </li>
+                    <li  class="nav-item" >
+                        <a href="firewalllist.html" class="nav-link" id="firewalllist">
+                            <i class="fa fa-outdent nav-icon"></i>
+                            <p>防火墙</p>
+                        </a>
+                    </li>
+                    <li class="nav-item has-treeview">
+                        <a href="" class="nav-link" id="monitor1">
+                            <i class="nav-icon fa fa-bell"></i>
+                            <p>
+                                <i class="right fa fa-angle-left"></i>
+                                监控告警
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="ruleslist.html" class="nav-link" id="ruleList">
+                                    <i class="fa fa-tag nav-icon"></i>
+                                    <p>告警规则</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="rulesRecord.html" class="nav-link" id="ruleRecord">
+                                    <i class="fa fa-tag nav-icon"></i>
+                                    <p>告警记录</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li  class="nav-item" >
+                        <a href="webshell.html" class="nav-link" id="webshell">
+                            <i class="fa fa-gears nav-icon"></i>
+                            <p>WebShell</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>日志管理</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="index.html">首页</a></li>
+              <li class="breadcrumb-item active">日志管理</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+
+          <div class="layui-row layui-col-space1">
+
+              <div>
+                <div class="layui-col-md3">
+                    <label>请选择主机ID</label>
+                    <select class="form-control" id="hostId">
+
+                    </select>
+                </div>
+                <div class="col-sm-4 tips"></div>
+              </div>
+
+              <div class="layui-col-md1"></div>
+
+              <div>
+                <div class="layui-col-md3">
+                  <label>请选择日志属性</label>
+                  <!-- 样式1 -->
+                  <select class="form-control" id="properties">
+
+                  </select>
+                </div>
+                <div class="col-sm-4 tips"></div>
+              </div>
+
+              <div class="layui-col-md1"></div>
+
+              <div>
+                  <div class="layui-col-md3">
+                      <label>请点击进行查询</label>
+                      <div >
+                          <button class="btn btn-block btn-info" onclick="getLogFileList()">查询</button>
+                      </div>
+                  </div>
+                  <div class="col-sm-4 tips"></div>
+              </div>
+
+
+
+          </div>
+
+
+
+          <div>
+            <!--日志文件数据表格-->
+          <table class="layui-hide" id="test" lay-filter="test"></table>
+          </div>
+      </div>
+    </section>
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark" >
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+</div>
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Select2 -->
+<script src="plugins/select2/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="plugins/input-mask/jquery.inputmask.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<!-- date-range-picker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap color picker -->
+<script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+<!-- bootstrap time picker -->
+<script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- SlimScroll 1.3.0 -->
+<script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="plugins/iCheck/icheck.min.js"></script>
+<!-- FastClick -->
+<script src="plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- Page script -->
+
+
+
+<script type="text/html" id="barDemo">
+    <a style="color: #fffffa" class="layui-btn layui-btn-xs" id="download" lay-event="download">下载文件</a>
+</script>
+
+
+<script>
+
+    // $('#download').attr("href") = "/DownloadLogFile";
+
+    function getHostId() {
+        $.ajax({
+            url: "/getHostId",
+            type: "post",
+            async: false,
+            datatype: "json",
+            success: function (array) {
+                var select = $("#hostId");
+                for (var i = 0;i < array.length;i ++){
+                    select.append(
+                        '<option id="'+ array[i] +'"value="'+ array[i] +'">'+ array[i] +'</option>'
+                    )
+                }
+            }
+        });
+    }
+    getHostId();
+
+    function getProperties() {
+        $.ajax({
+            url: "/getPropertiesList",
+            type: "post",
+            async: false,
+            datatype: "json",
+            success: function (array) {
+                var select = $("#properties");
+                for (var i = 0;i < array.length;i ++){
+                    var name;
+                    switch (array[i]){
+                        case "DiskBaseLogData" :
+                            name = "磁盘基础数据";
+                            break;
+                        case "PublicIpInflowLogData":
+                            name = "公网IP流入数据";
+                            break;
+                        case "LoadAverageLogData":
+                            name = "系统平均负载数据";
+                            break;
+                        case "CpuUseLogData":
+                            name = "CPU数据";
+                            break;
+                        case "PublicIpOutflowLogData":
+                            name = "公网IP流出数据";
+                            break;
+                        case "MemeryLogData":
+                            name = "内存使用数据";
+                            break;
+                        case "ReadIoLogData":
+                            name = "磁盘读取IO数据";
+                            break;
+                        case "ReadIopsLogData":
+                            name = "磁盘读取IOPS数据";
+                            break;
+                        case "WriteIoLogData":
+                            name = "磁盘写入IO数据";
+                            break;
+                        case "WriteIopsLogData":
+                            name = "磁盘写入IOPS数据";
+                                break;
+                        case "NetWorkCardLogData":
+                            name = "网卡流量数据";
+                                break;
+                        case "OnlineUserLogData":
+                            name = "在线用户数据";
+                            break;
+                        case "MysqlConnectionNumberLogData":
+                            name = "mysql连接数";
+                            break;
+                        case "MysqlInnodbBufferLogData":
+                            name = "MysqlInnodbBuffer命中率";
+                            break;
+                        case "MysqlKeyBufferLogData":
+                            name = "MysqlKeyBuffer命中率";
+                            break;
+                        case "MysqlProcessListLogData":
+                            name = "Mysql连接详情";
+                            break;
+                        case "MysqlQPSLogData":
+                            name = "MysqlQPS";
+                            break;
+                        case "MysqlQueryCacheLogData":
+                            name = "MysqlQueryCache命中率";
+                            break;
+                        case "MysqlTableCacheLogData":
+                            name = "MysqlTableCache命中率";
+                            break;
+                        case "MysqlThreadCacheLogData":
+                            name = "MysqlThreadCache命中率";
+                            break;
+                        case "MysqlTPSLogData":
+                            name = "MysqlTPS";
+                            break;
+                    }
+                    select.append(
+                        '<option id="'+ array[i] +'" value="'+ array[i] +'">'+ name +'</option>'
+                    )
+                }
+            }
+        });
+    }
+    getProperties();
+</script>
+<script>
+
+
+
+    function getLogFileList(){
+
+        var properties =$('#properties').find("option:selected").attr('id');
+        var hostid = $('#hostId').find("option:selected").attr('id');
+
+        console.log(properties + "  " + hostid);
+        layui.use('table', function(){
+            var table = layui.table;
+            table.render({
+                elem: '#test'
+                ,url:'/getLogFileList'
+                ,where:{id:hostid,properties:properties}
+                ,toolbar: '#toolbarDemo'
+                ,title: '日志存档数据表'
+                ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                    layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                    //,curr: 5 //设定初始在第 5 页
+                    ,groups: 5 //只显示 1 个连续页码
+                    ,first: false //不显示首页
+                    ,last: false //不显示尾页
+
+                }
+                // ,page: true
+                // ,limits: [10,20,30,40,50]  //每页条数的选择项，默认：[10,20,30,40,50,60,70,80,90]。
+                // ,limit: 10 //每页默认显示的数量
+                ,cols: [[
+                    {type: 'checkbox', fixed: 'left'}
+                    ,{field:'id', title:'主机ID',  templet: '#usernameTpl' ,unresize: true}
+                    ,{field:'filestarttime', title:'文件开始时间', sort: true}
+                    ,{field:'fileendtime', title:'文件结束时间', sort: true}
+                    ,{field:'filename', title:'文件名称', sort: true}
+                    ,{fixed: 'right', title:'操作',event: 'download', toolbar: '#barDemo'}
+                ]]
+                ,response: {
+                    statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+                }
+                ,parseData: function(res){ //将原始数据解析成 table 组件所规定的数据
+                    return {
+                        "count":res.count,
+                        "code": res.status, //解析接口状态
+                        "data": res.data //解析数据列表
+                    };
+                }
+            });
+
+            //监听行工具事件
+            table.on('tool(test)', function(obj){
+                var data = obj.data;
+                //console.log(obj)
+                if(obj.event === 'download'){
+                    layer.confirm('确定下载文件'+ data.filename , function(index){
+                        var properties =$('#properties').find("option:selected").attr('id');
+
+                        console.log(data.filename + "  " + data.id + "   " +  properties);
+                        var filepath = data.id + "/" + properties;
+
+                        var xhr = new XMLHttpRequest();
+                        var str = "filepath="+ filepath + "&" + "filename=" + data.filename;
+                        xhr.open('POST', "/DownloadLogFile", true);    //也可以使用POST方式，根据接口
+                        xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                        xhr.responseType = "blob";   //返回类型blob
+                        xhr.onload = function () {
+                            //定义请求完成的处理函数
+                            if (this.status === 200) {
+                                var blob = this.response;
+                                if(blob.size>0){
+                                    var reader = new FileReader();
+                                    reader.readAsDataURL(blob);   // 转换为base64，可以直接放入a标签href
+                                    reader.onload = function (e) {
+                                        // 转换完成，创建一个a标签用于下载
+                                        var a = document.createElement('a');
+                                        if(data.filename.indexOf("csv") != -1){
+                                            a.download = data.filename;
+                                            a.href = e.target.result;
+                                            $("body").append(a);    // 修复firefox中无法触发click
+                                            a.click();
+                                            $(a).remove();
+                                            window.location.reload();
+                                        }else {
+                                            a.download = data.filename+".zip";
+                                            a.href = e.target.result;
+                                            $("body").append(a);    // 修复firefox中无法触发click
+                                            a.click();
+                                            $(a).remove();
+                                            window.location.reload();
+                                        }
+
+                                    }
+                                }else{
+                                    window.location.reload();
+                                }
+                            }
+                        };
+                        xhr.send(str);
+                    });
+                }
+            });
+        });
+    }
+    getLogFileList();
+
+</script>
+
+<script>
+    noticeEveryFive();
+    $(document).ready(function () {
+        setInterval("noticeEveryFive()",1000*60*5);
+    });
+
+    function noticeEveryFive() {
+        $.ajax({
+            url: "/warn/notice",
+            type: "post",
+            dataType: "json",
+            success:function (data) {
+                console.log(data);
+                if (data.status == "warn"){
+                    layer.msg(data.reason, {
+                        icon: 3,
+                        time: 20000, //20s后自动关闭
+                        btn: ['WebShell','取消'],
+                        yes: function () {
+                            window.location.href = 'webshell.html';
+                        },
+                        btn2:function () {
+                            layer.close();
+                        },
+                    });
+                }
+            }
+        });
+    }
+
+</script>
+
+<script>
+    function logout() {
+        $.ajax({
+            url: "/logout",
+            type: "post",
+            dataType: "text",
+            success:function (data) {
+                layer.msg(data);
+                setTimeout(function () {
+                    window.location.href='login.html';
+                },1500);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

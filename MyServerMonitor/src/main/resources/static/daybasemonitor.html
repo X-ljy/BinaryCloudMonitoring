@@ -1,0 +1,3283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SeverMonitor</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!--引入layui-->
+    <script  src="dist/js/layui/layui.all.js"></script>
+    <link rel="stylesheet" href="dist/js/layui/css/layui.css">
+    <link rel="stylesheet" href="dist/css/alibaba/iconfont.css">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="index.html" class="nav-link">Home</a>
+            </li>
+        </ul>
+
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+                <a class="nav-link" onclick="logout()">
+                    <i class="fa fa-lg fa-sign-out"></i>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
+                        class="fa fa-lg fa-th-large"></i></a>
+            </li>
+        </ul>
+    </nav>
+  <!-- /.navbar -->
+
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" id="SideBar">
+      <!-- Brand Logo -->
+      <a href="index.html" class="brand-link">
+          <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+               style="opacity: .8">
+          <span class="brand-text font-weight-light">Binary</span>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+          <!-- Sidebar user panel (optional) -->
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+              <div class="image">
+                  <img src="dist/img/avatar04.png" class="img-circle elevation-2" alt="User Image">
+              </div>
+              <div class="info">
+                  <a href="#" class="d-block">管理员</a>
+                  <a href="accountset.html" class="d-block" id="account" >账号设置</a>
+              </div>
+          </div>
+
+          <!-- Sidebar Menu -->
+          <nav class="mt-2">
+              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                  <!-- Add icons to the links using the .nav-icon class
+                       with font-awesome or any other icon font library -->
+                  <li  class="nav-item" >
+                      <a href="index.html" class="nav-link"id="index">
+                          <i class="fa fa-dashboard nav-icon"></i>
+                          <p>首页</p>
+                      </a>
+                  </li>
+
+                  <li  class="nav-item" >
+                      <a href="hostlist.html" class="nav-link" id="hostList">
+                          <i class="fa fa-server nav-icon"></i>
+                          <p>服务器列表</p>
+                      </a>
+                  </li>
+
+                  <li  class="nav-item" >
+                      <a href="imagelist.html" class="nav-link" id="imageList">
+                          <i class="fa fa-bullseye nav-icon"></i>
+                          <p>镜像管理</p>
+                      </a>
+                  </li>
+
+                  <li class="nav-item has-treeview">
+                      <a href="" class="nav-link" id="monitor">
+                          <i class="nav-icon fa fa-eye"></i>
+                          <p>
+                              <i class="right fa fa-angle-left"></i>
+                              服务器监控
+                          </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                              <a href="basehostlist.html" class="nav-link" id="baseMonitor">
+                                  <i class="fa fa-tag nav-icon"></i>
+                                  <p>基础性能监控</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="prochostlist.html" class="nav-link" id="processMonitor">
+                                  <i class="fa fa-tag nav-icon"></i>
+                                  <p>进程监控</p>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+                  <li class="nav-item has-treeview">
+                      <a href="" class="nav-link" id="appmonitor">
+                          <i class="nav-icon fa fa-cubes"></i>
+                          <p>
+                              <i class="right fa fa-angle-left"></i>
+                              应用服务监控
+                          </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                              <a href="mysqlMonitor.html" class="nav-link" id="MysqlMonitor">
+                                  <i class="fa fa-tag nav-icon"></i>
+                                  <p>MySQL性能监控</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="javaMonitor.html" class="nav-link" id="javaMonitor">
+                                  <i class="fa fa-tag nav-icon"></i>
+                                  <p>Tomcat性能监控</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="javaThread.html" class="nav-link" id="threadMonitor">
+                                  <i class="fa fa-tag nav-icon"></i>
+                                  <p>JVM线程信息</p>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+                  <li  class="nav-item" >
+                      <a href="network.html" class="nav-link" id="network">
+                          <i class="fa fa-rss nav-icon"></i>
+                          <p>网络管理</p>
+                      </a>
+                  </li>
+
+                  <li  class="nav-item" >
+                      <a href="storage.html" class="nav-link" id="storage">
+                          <i class="fa fa-database nav-icon"></i>
+                          <p>存储管理</p>
+                      </a>
+                  </li>
+                  <li  class="nav-item" >
+                      <a href="snap.html" class="nav-link" id="snap">
+                          <i class="fa fa-camera nav-icon"></i>
+                          <p>快照管理</p>
+                      </a>
+                  </li>
+                  <li  class="nav-item" >
+                      <a href="logmanager.html" class="nav-link" id="logImport">
+                          <i class="fa fa-cloud-download nav-icon"></i>
+                          <p>日志管理</p>
+                      </a>
+                  </li>
+                  <li  class="nav-item" >
+                      <a href="firewalllist.html" class="nav-link" id="firewalllist">
+                          <i class="fa fa-outdent nav-icon"></i>
+                          <p>防火墙</p>
+                      </a>
+                  </li>
+                  <li class="nav-item has-treeview">
+                      <a href="" class="nav-link" id="monitor1">
+                          <i class="nav-icon fa fa-bell"></i>
+                          <p>
+                              <i class="right fa fa-angle-left"></i>
+                              监控告警
+                          </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                              <a href="ruleslist.html" class="nav-link" id="ruleList">
+                                  <i class="fa fa-tag nav-icon"></i>
+                                  <p>告警规则</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="rulesRecord.html" class="nav-link" id="ruleRecord">
+                                  <i class="fa fa-tag nav-icon"></i>
+                                  <p>告警记录</p>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+                  <li  class="nav-item" >
+                      <a href="webshell.html" class="nav-link" id="webshell">
+                          <i class="fa fa-gears nav-icon"></i>
+                          <p>WebShell</p>
+                      </a>
+                  </li>
+              </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+  </aside>
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>基础性能监控</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="index.html">首页</a></li>
+              <li class="breadcrumb-item active">基础性能监控</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+      <div class="layui-row">
+          <div class="layui-col-md-offset10">
+              <div class="layui-btn-group">
+                  <button type="button" onclick="hourbase()" class="layui-btn layui-btn-primary layui-btn-sm layui-btn-">一小时</button>
+                  <button type="button" onclick="daybase()" class="layui-btn layui-btn-warm layui-btn-sm">一天</button>
+                  <button type="button" onclick="weekbase()" class="layui-btn layui-btn-primary layui-btn-sm">一周</button>
+                  <button type="button" onclick="refresh()" class="layui-btn layui-btn-primary layui-btn-sm"><i class="iconfont icon-jiankong-"></i></button>
+              </div>
+          </div>
+
+      </div>
+      <hr class="layui-bg-blue">
+
+      <div><br></div>
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+          <!--cup & 平均负载-->
+          <div class="row ">
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>平均负载</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="LoadAverage" class="chart" style="margin:0 auto;border:0px solid #f4f6f9;width:100%;height:350px;display: inline-block">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>CUP使用率</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="CpuUseUtil" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>CUP占用</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="CPUOccupy" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!--内存-->
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>内存占用</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body" style="height: 323px">
+                          <div id="memoryoccupy" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:100%;display: inline-block ">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>交换区占用</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="SwapOccupy" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>内存使用率</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="MemUtil" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!--网络-->
+          <div class="row ">
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>公网IP流入速率</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="publicInflowOneHourData" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                      <div class="card card-secondary">
+                          <div class="card-header">
+                              <a>公网IP流出速率</a>
+                              <div class="card-tools">
+                                  <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                  </button>
+                                  <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                              </div>
+                          </div>
+                          <div class="card-body">
+                              <div id="publicOutflowOneHourData" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>网卡接收数据</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="NetCardRec" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>网卡发送数据</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="NetCardSent" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="row ">
+              <div class="col-md-12">
+                      <div class="card card-secondary" id="ReadIOCard">
+                          <div class="card-header">
+                              <a>磁盘读IO</a>
+                              <div class="card-tools">
+                                  <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                  <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                              </div>
+                          </div>
+                          <div class="card-body">
+                              <div id="ReadIoOneHourData" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>磁盘写IO</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="WriteIo" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+          <div class="row ">
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>磁盘写IOPS</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="WriteIops" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>磁盘读IOPS</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="ReadIopsOneHourData" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+          <div class="row">
+
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>磁盘IO操作每秒消耗CPU</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="DiskIOUseCPU" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>merge读写操作</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="WRMerge" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>磁盘读写字节数量</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="DiskRWKbyte" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>磁盘IO操作数据大小</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="DiskIOOperation" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>磁盘IO队列长度</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="DiskIOQueue" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>磁盘读写操作平均耗时</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="DiskRWSector" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                  <div class="card card-secondary">
+                      <div class="card-header">
+                          <a>IO操作平均等待、服务时间</a>
+                          <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                              </button>
+                              <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                          <div id="DiskIOWait" class="chart" style="margin:0 auto;border:0px solid #ffffff;width: 100%;height:350px;display: inline-block ">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- /.col (RIGHT) -->
+      </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Add Content Here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+<!-- 引入 ECharts 文件 -->
+<script src="dist/js/plugins/echarts4/echarts.min.js"></script>
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS 1.0.1 -->
+<script src="plugins/chartjs-old/Chart.min.js"></script>
+<!-- FastClick -->
+<script src="plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- page script -->
+<!-- 引入Echarts4-->
+<script src="dist/js/plugins/echarts4/echarts.min.js"></script>
+
+<script>
+    //url传值
+    var urlValue = window.location.href;
+    urlValue = urlValue.split("?");
+    console.log(urlValue);
+    var hostid = urlValue[1];
+    var hostip = urlValue[2];
+
+
+</script>
+
+
+<!--内存使用-->
+<script>
+    function MemoryOccupy() {
+        var memOccupy = echarts.init(document.getElementById('memoryoccupy'));
+        optionMemoryOccupy = {
+            title: {
+                text: ''
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            legend: {
+                data:['内存总量:MB','使用内存:MB','空闲内存:MB','缓存的内存量:MB']
+            },
+            toolbox: {
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {},
+                },
+                top:'22',
+
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            dataZoom: [
+                {
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                    start: 0,
+                    end: 100,
+                    zoomOnMouseWheel: 'shift',
+                    slider:{
+                        bottom: '0'
+                    }
+                },
+            ],
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : []
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    axisLabel: {
+                        formatter: '{value} MB'
+                    },
+                }
+            ],
+            series : [
+                {
+                    name:'内存总量:MB',
+                    type:'line',
+                    areaStyle: {
+                        color: '#0098ff',
+
+                    },
+                    data:[]
+                },
+                {
+                    name:'使用内存:MB',
+                    type:'line',
+                    areaStyle: {
+                        color: '#0e8500',
+
+                    },
+                    data:[]
+                },
+                {
+                    name:'空闲内存:MB',
+                    type:'line',
+                    areaStyle: {
+                        color: '#8a0800',
+
+                    },
+                    data:[]
+                },
+                {
+                    name:'缓存的内存量:MB',
+                    type:'line',
+                    areaStyle: {
+                        color: '#d37e00',
+
+                    },
+                    data:[]
+                },
+            ]
+        };
+        memOccupy.showLoading();
+        $.ajax({
+            url: "/getDayMemUseInfo",
+            type: "post",
+            data: {"hostip": hostip},
+            async: false,
+            datatype: "json",
+            success: function (data) {
+                var j = 0;
+                for (var i = data[1].length-1; i>=0;i --){
+                    optionMemoryOccupy.series[0].data[j] = data[1][i];
+                    optionMemoryOccupy.series[1].data[j] = data[2][i];
+                    optionMemoryOccupy.series[2].data[j] = data[3][i];
+                    optionMemoryOccupy.series[3].data[j] = data[4][i];
+                    optionMemoryOccupy.xAxis[0].data[j] = data[0][i];
+                    j =j+1;
+                }
+            }
+        });
+        memOccupy.hideLoading();
+        memOccupy.setOption(optionMemoryOccupy,true);
+    }
+    MemoryOccupy();
+</script>
+<!--CPU占用数据-->
+<script>
+    function CPUOccupy() {
+        var cupOccupy = echarts.init(document.getElementById('CPUOccupy'));
+        optionCPUOccupy = {
+            title: {
+                text: ''
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['用户占用:%','内核占用:%','优先级变更占用:%','空闲:%','IO等待占用:%','硬中断v','虚拟机占用v','软中断:%']
+            },
+            toolbox: {
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {},
+                },
+                top:'22',
+
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            dataZoom: [
+                {
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                    start: 0,
+                    end: 100,
+                    zoomOnMouseWheel: 'shift',
+                    slider:{
+                        bottom: '0'
+                    }
+                },
+            ],
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: []
+            },
+            yAxis: {
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value} %'
+                },
+            },
+            series: [
+                {
+                    name:'用户占用:%',
+                    type:'line',
+                    data:[],
+                },
+                {
+                    name:'内核占用:%',
+                    type:'line',
+                    data:[]
+                },
+                {
+                    name:'优先级变更占用:%',
+                    type:'line',
+                    data:[]
+                },
+                {
+                    name:'空闲:%',
+                    type:'line',
+                    data:[]
+                },
+                {
+                    name:'IO等待占用:%',
+                    type:'line',
+                    data:[]
+                },
+                {
+                    name:'硬中断:%',
+                    type:'line',
+                    data:[]
+                },
+                {
+                    name:'虚拟机占用:%',
+                    type:'line',
+                    data:[]
+                },
+                {
+                    name:'软中断:%',
+                    type:'line',
+                    data:[]
+                },
+            ]
+        };
+
+        cupOccupy.showLoading();
+        $.ajax({
+            url: "/getDayCpuUseInfo",
+            type: "post",
+            data:{"hostip":hostip},
+            async: false,
+            datatype: "json",
+            success: function (data) {
+                var j = 0;
+                for (var i = data[1].length-1; i>=0; i--){
+                    optionCPUOccupy.series[0].data[j] = data[1][i];
+                    optionCPUOccupy.series[1].data[j] = data[2][i];
+                    optionCPUOccupy.series[2].data[j] = data[3][i];
+                    optionCPUOccupy.series[3].data[j] = data[4][i];
+                    optionCPUOccupy.series[4].data[j] = data[5][i];
+                    optionCPUOccupy.series[5].data[j] = data[6][i];
+                    optionCPUOccupy.series[6].data[j] = data[7][i];
+                    optionCPUOccupy.series[7].data[j] = data[8][i];
+                    optionCPUOccupy.xAxis.data[j] = data[0][i];
+                    j = j + 1;
+                }
+                cupOccupy.hideLoading();
+                cupOccupy.setOption(optionCPUOccupy,true);
+            }
+        });
+        cupOccupy.setOption(optionCPUOccupy,true);
+    }
+    CPUOccupy();
+</script>
+<!--交换区占用数据-->
+<script>
+    function SwapOccupy() {
+        var swapOccupy = echarts.init(document.getElementById('SwapOccupy'));
+        optionSwapOccupy = {
+            title: {
+                text: ''
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['交换区总量:MB','交换区使用:MB','交换区空闲:MB','缓冲交换区总量:MB']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            dataZoom: [
+                {
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                    start: 0,
+                    end: 100,
+                    zoomOnMouseWheel: 'shift',
+                    slider:{
+                        bottom: '0'
+                    }
+                },
+            ],
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: []
+            },
+            yAxis: {
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value} MB'
+                },
+            },
+            series: [
+                {
+                    name:'交换区总量:MB',
+                    type:'line',
+                    data:[]
+                },
+                {
+                    name:'交换区使用:MB',
+                    type:'line',
+                    data:[]
+                },
+                {
+                    name:'交换区空闲:MB',
+                    type:'line',
+                    data:[]
+                },
+                {
+                    name:'缓冲交换区总量:MB',
+                    type:'line',
+                    data:[]
+                },
+            ]
+        };
+
+        swapOccupy.showLoading();
+        $.ajax({
+            url: "/getDaySwapUseInfo",
+            type: "post",
+            data: {"hostip": hostip},
+            async: false,
+            datatype: "json",
+            success: function (data) {
+                var j = 0;
+                for (var i = data[1].length-1; i>=0;i --){
+                    optionSwapOccupy.series[0].data[j] = data[1][i];
+                    optionSwapOccupy.series[1].data[j] = data[2][i];
+                    optionSwapOccupy.series[2].data[j] = data[3][i];
+                    optionSwapOccupy.series[3].data[j] = data[4][i];
+                    optionSwapOccupy.xAxis.data[j] = data[0][i];
+                    j = j +1;
+                }
+            }
+        });
+
+        swapOccupy.hideLoading();
+        swapOccupy.setOption(optionSwapOccupy,true);
+    }
+    SwapOccupy();
+</script>
+<!--网卡接收数据-->
+<script>
+    function NetCardRec() {
+        var netCardRec = echarts.init(document.getElementById('NetCardRec'));
+        optionNetCardRec = {
+            title: {
+                text: ''
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['接收包数：rxpck/s','接收字节数：rxKbyte/s','接收压缩包数：rxcmp/s']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            dataZoom: [
+                {
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                    start: 0,
+                    end: 100,
+                    zoomOnMouseWheel: 'shift',
+                    slider:{
+                        bottom: '0'
+                    }
+                },
+            ],
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: []
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'接收包数：rxpck/s',
+                    type:'line',
+                    data:[]
+                },
+                {
+                    name:'接收字节数：rxKbyte/s',
+                    type:'line',
+                    data:[]
+                },
+                {
+                    name:'接收压缩包数：rxcmp/s',
+                    type:'line',
+                    data:[]
+                },
+
+            ]
+        };
+        netCardRec.showLoading();
+        $.ajax({
+            url: "/getDayNetCardRecvInfo",
+            type: "post",
+            data: {"hostip": hostip},
+            async: false,
+            datatype: "json",
+            success: function (data) {
+                var j = 0;
+                for (var i = data[1].length-1; i>=0;i --){
+                    optionNetCardRec.series[0].data[j] = data[1][i];
+                    optionNetCardRec.series[1].data[j] = data[2][i];
+                    optionNetCardRec.series[2].data[j] = data[3][i];
+                    optionNetCardRec.xAxis.data[j] = data[0][i];
+                    j =j + 1;
+                }
+            }
+        });
+        netCardRec.hideLoading();
+        netCardRec.setOption(optionNetCardRec,true);
+    }
+    NetCardRec();
+</script>
+<!--网卡发送数据-->
+<script>
+    function NetCardSent() {
+        var netCardSent = echarts.init(document.getElementById('NetCardSent'));
+        optionnetCardSent = {
+            title: {
+                text: ''
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['发送包数：txpck/s','发送字节数：txKbyte/s','发送压缩包数：txcmp/s','多播包数：txmcst/s']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            dataZoom: [
+                {
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                    start: 0,
+                    end: 100,
+                    zoomOnMouseWheel: 'shift',
+                    slider:{
+                        bottom: '0'
+                    }
+                },
+            ],
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: []
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'发送包数：txpck/s',
+                    type:'line',
+                    data:[]
+                },
+                {
+                    name:'发送字节数：txKbyte/s',
+                    type:'line',
+                    data:[]
+                },
+                {
+                    name:'发送压缩包数：txcmp/s',
+                    type:'line',
+                    data:[]
+                },
+                {
+                    name:'多播包数：txmcst/s',
+                    type:'line',
+                    data:[]
+                },
+            ]
+        };
+        netCardSent.showLoading();
+        $.ajax({
+            url: "/getDayNetCardSentInfo",
+            type: "post",
+            data: {"hostip": hostip},
+            async: false,
+            datatype: "json",
+            success: function (data) {
+                var j = 0;
+                for (var i = data[1].length-1; i>=0;i --){
+                    optionnetCardSent.series[0].data[j] = data[1][i];
+                    optionnetCardSent.series[1].data[j] = data[2][i];
+                    optionnetCardSent.series[2].data[j] = data[3][i];
+                    optionnetCardSent.series[3].data[j] = data[4][i];
+                    optionnetCardSent.xAxis.data[j] = data[0][i];
+                    j = j + 1;
+                }
+            }
+        });
+        netCardSent.hideLoading();
+        netCardSent.setOption(optionnetCardSent,true);
+    }
+    NetCardSent();
+</script>
+<!--内存使用率-->
+<script>
+    function MemUtil() {
+        var memUtil = echarts.init(document.getElementById('MemUtil'));
+        optionMemUtil = {
+            title: {
+                text: ''
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['内存使用率:%']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: []
+            },
+            yAxis: {
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value} %'
+                },
+            },
+            dataZoom: [
+                {
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                    start: 0,
+                    end: 100,
+                    zoomOnMouseWheel: 'shift',
+                    slider:{
+                        bottom: '0'
+                    }
+                },
+            ],
+            series: [
+                {
+                    name:'内存使用率:%',
+                    type:'line',
+                    data:[]
+                },
+
+            ]
+        };
+
+        memUtil.showLoading();
+        $.ajax({
+            url: "/getDayMemUseUtilInfo",
+            type: "post",
+            data: {"hostip": hostip},
+            async: false,
+            datatype: "json",
+            success: function (data) {
+                var j = 0;
+                for (var i = data[1].length-1; i>=0;i --){
+                    optionMemUtil.series[0].data[j] = data[1][i];
+                    optionMemUtil.xAxis.data[j] = data[0][i];
+                    j = j + 1;
+                }
+            }
+        });
+        memUtil.hideLoading();
+        memUtil.setOption(optionMemUtil,true);
+    }
+    MemUtil();
+</script>
+<!--merge读写操作-->
+<script>
+    function WRMerge() {
+        var wrMerge = echarts.init(document.getElementById('WRMerge'));
+        optionwrMerge = {
+            title: {
+                text: ''
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            legend: {
+                data:['vda读操作：rmerge/s','vda写操作：wmerge/s','vdb读操作：rmerge/s','vdb写操作：wmerge/s']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            dataZoom: [
+                {
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                    start: 0,
+                    end: 100,
+                    zoomOnMouseWheel: 'shift',
+                    slider:{
+                        bottom: '0'
+                    }
+                },
+            ],
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : []
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    axisLabel: {
+                        formatter: '{value} merge/s'
+                    },
+                }
+            ],
+            series : [
+                {
+                    name:'vda读操作：rmerge/s',
+                    type:'line',
+                    areaStyle: {normal: {}},
+                    data:[]
+                },
+                {
+                    name:'vda写操作：wmerge/s',
+                    type:'line',
+                    areaStyle: {
+                        color: '#004b73'
+                    },
+                    data:[]
+                },
+                {
+                    name:'vdb读操作：rmerge/s',
+                    type:'line',
+                    areaStyle: {normal: {}},
+                    data:[]
+                },
+                {
+                    name:'vdb写操作：wmerge/s',
+                    type:'line',
+                    areaStyle: {
+                        color: '#73001f'
+                    },
+                    data:[]
+                },
+
+            ]
+        };
+        wrMerge.showLoading();
+        $.ajax({
+            url: "/getDayMergeInfo",
+            type: "post",
+            data: {"hostip": hostip},
+            async: false,
+            datatype: "json",
+            success: function (data) {
+                var j = 0;
+                for (var i = data[1].length-1; i>=0;i --){
+                    optionwrMerge.series[0].data[j] = data[1][i];
+                    optionwrMerge.series[1].data[j] = data[2][i];
+                    optionwrMerge.series[2].data[j] = data[3][i];
+                    optionwrMerge.series[3].data[j] = data[4][i];
+                    optionwrMerge.xAxis[0].data[j] = data[0][i];
+                    j =j +1;
+                }
+            }
+        });
+        wrMerge.hideLoading();
+        wrMerge.setOption(optionwrMerge,true);
+    }
+    WRMerge();
+</script>
+<!--磁盘字节读取情况-->
+<script>
+    function DiskRWKbyte() {
+        var diskRWKbyte = echarts.init(document.getElementById('DiskRWKbyte'));
+        optiondiskRWKbyte = {
+            title: {
+                text: ''
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            dataZoom: [
+                {
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                    start: 0,
+                    end: 100,
+                    zoomOnMouseWheel: 'shift',
+                    slider:{
+                        bottom: '0'
+                    }
+                },
+            ],
+            legend: {
+                data:['vda读字节数：kB/s','vda写字节数：kB/s','vdb读字节数：kB/s','vdb写字节数：kB/s']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : []
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    axisLabel: {
+                        formatter: '{value} kB/s'
+                    },
+                }
+            ],
+            series : [
+                {
+                    name:'vda读字节数：kB/s',
+                    type:'line',
+                    areaStyle: {normal: {}},
+                    data:[]
+                },
+                {
+                    name:'vda写字节数：kB/s',
+                    type:'line',
+                    areaStyle: {normal: {}},
+                    data:[]
+                },
+                {
+                    name:'vdb读字节数：kB/s',
+                    type:'line',
+                    areaStyle: {normal: {}},
+                    data:[]
+                },
+                {
+                    name:'vdb写字节数：kB/s',
+                    type:'line',
+                    areaStyle: {normal: {}},
+                    data:[]
+                },
+            ]
+        };
+
+        diskRWKbyte.showLoading();
+        $.ajax({
+            url: "/getDayIoBytesInfo",
+            type: "post",
+            data: {"hostip": hostip},
+            async: false,
+            datatype: "json",
+            success: function (data) {
+                var j = 0;
+                for (var i = data[1].length-1; i>=0;i --){
+                    optiondiskRWKbyte.series[0].data[j] = data[1][i];
+                    optiondiskRWKbyte.series[1].data[j] = data[2][i];
+                    optiondiskRWKbyte.series[2].data[j] = data[3][i];
+                    optiondiskRWKbyte.series[3].data[j] = data[4][i];
+                    optiondiskRWKbyte.xAxis[0].data[j] = data[0][i];
+                    j = j +1;
+                }
+            }
+        });
+
+        diskRWKbyte.hideLoading();
+        diskRWKbyte.setOption(optiondiskRWKbyte,true);
+    }
+    DiskRWKbyte();
+</script>
+<!--磁盘IO操作情况-->
+<script>
+    function DiskIOOperation() {
+        var diskIOOperation = echarts.init(document.getElementById('DiskIOOperation'));
+        optiondiskIOOperation = {
+            title: {
+                text: ''
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            legend: {
+                data:['vda平均每次IO操作数据大小','vdb平均每次IO操作数据大小']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            dataZoom: [
+                {
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                    start: 0,
+                    end: 100,
+                    zoomOnMouseWheel: 'shift',
+                    slider:{
+                        bottom: '0'
+                    }
+                },
+            ],
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : []
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                }
+            ],
+            series : [
+                {
+                    name:'vda平均每次IO操作数据大小',
+                    type:'line',
+                    areaStyle: {
+                        color: '#6f00ff'
+                    },
+                    data:[]
+                },
+                {
+                    name:'vdb平均每次IO操作数据大小',
+                    type:'line',
+                    areaStyle: {
+                        color: '#00ff2e'
+                    },
+                    data:[]
+                },
+
+            ]
+        };
+
+        diskIOOperation.showLoading();
+        $.ajax({
+            url: "/getDayOperationSizeInfo",
+            type: "post",
+            data: {"hostip": hostip},
+            async: false,
+            datatype: "json",
+            success: function (data) {
+                var j = 0;
+                for (var i = data[1].length-1; i>=0;i --){
+                    optiondiskIOOperation.series[0].data[j] = data[1][i];
+                    optiondiskIOOperation.series[1].data[j] = data[2][i];
+                    optiondiskIOOperation.xAxis[0].data[j] = data[0][i];
+                    j = j +1;
+                }
+            }
+        });
+        diskIOOperation.hideLoading();
+        diskIOOperation.setOption(optiondiskIOOperation,true);
+    }
+    DiskIOOperation();
+</script>
+<!--磁盘IO队列长度-->
+<script>
+    function DiskIOQueue() {
+        var diskIOQueue = echarts.init(document.getElementById('DiskIOQueue'));
+        optiondiskIOQueue = {
+            title: {
+                text: ''
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            legend: {
+                data:['磁盘vdaIO队列长度','磁盘vdbIO队列长度']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            dataZoom: [
+                {
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                    start: 0,
+                    end: 100,
+                    zoomOnMouseWheel: 'shift',
+                    slider:{
+                        bottom: '0'
+                    }
+                },
+            ],
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : []
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'磁盘vdaIO队列长度',
+                    type:'line',
+                    areaStyle: {normal: {}},
+                    data:[]
+                },
+                {
+                    name:'磁盘vdbIO队列长度',
+                    type:'line',
+                    areaStyle: {normal: {}},
+                    data:[]
+                },
+            ]
+        };
+
+        diskIOQueue.showLoading();
+        $.ajax({
+            url: "/getDayIoQueueLengthInfo",
+            type: "post",
+            data: {"hostip": hostip},
+            async: false,
+            datatype: "json",
+            success: function (data) {
+                var j = 0;
+                for (var i = data[1].length-1; i>=0;i --){
+                    optiondiskIOQueue.series[0].data[j] = data[1][i];
+                    optiondiskIOQueue.series[1].data[j] = data[2][i];
+                    optiondiskIOQueue.xAxis[0].data[j] = data[0][i];
+                    j = j + 1;
+                }
+            }
+        });
+
+        diskIOQueue.hideLoading();
+        diskIOQueue.setOption(optiondiskIOQueue,true);
+    }
+    DiskIOQueue();
+</script>
+<!--磁盘IO操作耗时-->
+<script>
+    function DiskRWSector() {
+        var diskRWSector = echarts.init(document.getElementById('DiskRWSector'));
+        optiondiskRWSector = {
+            title: {
+                text: ''
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            dataZoom: [
+                {
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                    start: 0,
+                    end: 100,
+                    zoomOnMouseWheel: 'shift',
+                    slider:{
+                        bottom: '0'
+                    }
+                },
+            ],
+            legend: {
+                data:['vda读操作：ms','vda写操作：ms','vdb读操作：ms','vdb写操作：ms']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+
+                    data : []
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    axisLabel: {
+                        formatter: '{value} ms'
+                    },
+                }
+            ],
+            series : [
+                {
+                    name:'vda读操作：ms',
+                    type:'line',
+                    areaStyle: {
+                        color: '#a5ad14'
+                    },
+                    data:[]
+                },
+                {
+                    name:'vda写操作：ms',
+                    type:'line',
+                    areaStyle: {
+                        color: '#3b4395'
+                    },
+                    data:[]
+                },
+                {
+                    name:'vdb读操作：ms',
+                    type:'line',
+                    areaStyle: {
+                        color: '#a5ad14'
+                    },
+                    data:[]
+                },
+                {
+                    name:'vdb写操作：ms',
+                    type:'line',
+                    areaStyle: {
+                        color: '#3b4395'
+                    },
+                    data:[]
+                },
+            ]
+        };
+        diskRWSector.showLoading();
+        $.ajax({
+            url: "/getDayIoWRUseInfo",
+            type: "post",
+            data: {"hostip": hostip},
+            async: false,
+            datatype: "json",
+            success: function (data) {
+                var j = 0;
+                for (var i = data[1].length-1; i>=0;i --){
+                    optiondiskRWSector.series[0].data[j] = data[1][i];
+                    optiondiskRWSector.series[1].data[j] = data[2][i];
+                    optiondiskRWSector.series[2].data[j] = data[3][i];
+                    optiondiskRWSector.series[3].data[j] = data[4][i];
+                    optiondiskRWSector.xAxis[0].data[j] = data[0][i];
+                    j = j +1;
+                }
+            }
+        });
+        diskRWSector.hideLoading();
+        diskRWSector.setOption(optiondiskRWSector,true);
+    }
+    DiskRWSector();
+</script>
+<!--磁盘IO服务等待时间-->
+<script>
+    function DiskIOWait() {
+        var diskIOWait = echarts.init(document.getElementById('DiskIOWait'));
+        optionDiskIOWait = {
+            title: {
+                text: ''
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            legend: {
+                data:['vda平均等待时间：ms','vda平均服务时间：ms','vdb平均等待时间：ms','vdb平均服务时间：ms']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            dataZoom: [
+                {
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                    start: 0,
+                    end: 100,
+                    zoomOnMouseWheel: 'shift',
+                    slider:{
+                        bottom: '0'
+                    }
+                },
+            ],
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : []
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    axisLabel: {
+                        formatter: '{value} ms'
+                    },
+                }
+            ],
+            series : [
+                {
+                    name:'vda平均等待时间：ms',
+                    type:'line',
+                    areaStyle: {
+                        color: '#00c4f5'
+                    },
+                    data:[]
+                },
+                {
+                    name:'vda平均服务时间：ms',
+                    type:'line',
+                    areaStyle: {
+                        color: '#28ff34'
+                    },
+                    data:[]
+                },
+                {
+                    name:'vdb平均等待时间：ms',
+                    type:'line',
+                    areaStyle: {
+                        color: '#f50100'
+                    },
+                    data:[]
+                },
+                {
+                    name:'vdb平均服务时间：ms',
+                    type:'line',
+                    areaStyle: {
+                        color: '#710084'
+                    },
+                    data:[]
+                },
+            ]
+        };
+
+        diskIOWait.showLoading();
+        $.ajax({
+            url: "/getDayIoSWTimeInfo",
+            type: "post",
+            data: {"hostip": hostip},
+            async: false,
+            datatype: "json",
+            success: function (data) {
+                var j = 0;
+                for (var i = data[1].length-1; i>=0;i --){
+                    optionDiskIOWait.series[0].data[j] = data[1][i];
+                    optionDiskIOWait.series[1].data[j] = data[2][i];
+                    optionDiskIOWait.series[2].data[j] = data[3][i];
+                    optionDiskIOWait.series[3].data[j] = data[4][i];
+                    optionDiskIOWait.xAxis[0].data[j] = data[0][i];
+                    j = j + 1;
+                }
+            }
+        });
+
+        diskIOWait.hideLoading();
+        diskIOWait.setOption(optionDiskIOWait,true);
+    }
+    DiskIOWait();
+</script>
+<!--磁盘IO操作每秒消耗情况-->
+<script>
+    function DiskIOUseCPU() {
+        var diskIOUseCPU = echarts.init(document.getElementById('DiskIOUseCPU'));
+        optionDiskIOUseCPU = {
+            title: {
+                text: ''
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            legend: {
+                data:['vda每秒IO操作消耗CPU百分比：%util','vdb每秒IO操作消耗CPU百分比：%util']
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            dataZoom: [
+                {
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                    start: 0,
+                    end: 100,
+                    zoomOnMouseWheel: 'shift',
+                    slider:{
+                        bottom: '0'
+                    }
+                },
+            ],
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : []
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    axisLabel: {
+                        formatter: '{value} %'
+                    },
+                }
+            ],
+            series : [
+                {
+                    name:'vda每秒IO操作消耗CPU百分比：%util',
+                    type:'line',
+                    areaStyle: {
+                        color: '#0b8569',
+
+                    },
+                    data:[],
+                },
+                {
+                    name:'vdb每秒IO操作消耗CPU百分比：%util',
+                    type:'line',
+                    areaStyle: {
+                        color: '#000385',
+
+                    },
+                    data:[],
+                },
+
+            ]
+        };
+
+        diskIOUseCPU.showLoading();
+        $.ajax({
+            url: "/getDayIoUtilInfo",
+            type: "post",
+            data: {"hostip": hostip},
+            async: false,
+            datatype: "json",
+            success: function (data) {
+                var j = 0;
+                for (var i = data[1].length-1; i>=0;i --){
+                    optionDiskIOUseCPU.series[0].data[j] = data[1][i];
+                    optionDiskIOUseCPU.series[1].data[j] = data[2][i];
+                    optionDiskIOUseCPU.xAxis[0].data[j] = data[0][i];
+                    j = j + 1;
+                }
+            }
+        });
+
+        diskIOUseCPU.hideLoading();
+        diskIOUseCPU.setOption(optionDiskIOUseCPU,true);
+    }
+    DiskIOUseCPU();
+</script>
+
+<!--磁盘写入IOPS-->
+<script type="text/javascript">
+    //url传值
+    var urlValue = window.location.href;
+    urlValue = urlValue.split("?");
+
+    var hostid = urlValue[1];
+    console.log("url : "+ hostid);
+
+    // 基于准备好的dom，初始化echarts实例
+    var WriteIopsChart = echarts.init(document.getElementById('WriteIops'));
+
+    // 指定图表的配置项和数据
+    // 显示标题，图例和空的坐标轴
+    WriteIopsChart.setOption({
+        title: {
+            text: ''
+        },
+        legend: {
+            data:['单位：Count/s','系统盘','外挂磁盘'],
+            left:'left',
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        dataZoom: [
+            {
+                id: 'dataZoomX',
+                type: 'slider',
+                xAxisIndex: [0],
+                filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                start: 0,
+                end: 100,
+                zoomOnMouseWheel: 'shift',
+                slider:{
+                    bottom: '0'
+                }
+            },
+        ],
+        xAxis: {
+            data: []
+        },
+        yAxis: {
+            axisLabel: {
+                formatter: '{value} Counts/s'
+            },
+        },
+        series: [
+            {
+                name: '单位：Count/s',
+                type: 'line',
+                data: []
+            }, {
+                name: '系统盘',
+                type: 'line',
+                lineStyle:{
+                    normal:{
+                        color:"#008080",
+                    }
+                },
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#008080'
+                        }, {
+                            offset: 1,
+                            color: '#ffe'
+                        }])
+                    }
+                },
+                data: [],
+            }, {
+                name: '外挂磁盘',
+                type: 'line',
+                lineStyle:{
+                    normal:{
+                        color:"#008080",
+                    }
+                },
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#008080'
+                        }, {
+                            offset: 1,
+                            color: '#ffe'
+                        }])
+                    }
+                },
+                data: [],
+            }
+        ],
+        // dataZoom:{
+        //     realtime:true, //拖动滚动条时是否动态的更新图表数据
+        //     height:25,//滚动条高度
+        //     start:40,//滚动条开始位置（共100等份）
+        //     end:65//结束位置（共100等份）
+        // }
+
+    });
+
+    WriteIopsChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
+
+    var xWriteIops=[];    //类别数组（实际用来盛放X轴坐标值）
+    var yWriteIops1=[];    //数据数组（实际用来盛放Y坐标值）
+    var yWriteIops2=[];
+    $.ajax({
+        type : "post",
+        async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "/getOneDayWriteIopsData",    //请求发送到TestServlet处
+        data : {"id":hostid},
+        dataType : "json",        //返回数据形式为json
+        success : function(result) {
+            //请求成功时执行该函数内容，result即为服务器返回的json对象
+            console.log(result);
+            if (result) {
+                result = result.reverse();
+
+                for(var i=0;i<result.length;i++){
+                    xWriteIops.push(result[i].data.tag1.date1.substr(11,18));    //x轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yWriteIops1.push(result[i].data.tag1.data1);    //y轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yWriteIops2.push(result[i].data.tag2.data2);    //y轴数据
+                }
+                WriteIopsChart.hideLoading();    //隐藏加载动画
+                WriteIopsChart.setOption({        //加载数据图表
+                    xAxis: {
+                        type: 'category',
+                        data: xWriteIops,
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name: '单位：Count/s',
+                            type: 'line',
+                            data: []
+                        }, {
+                            name: '系统盘',
+                            type: 'line',
+                            data: yWriteIops1
+                        }, {
+                            name: '外挂磁盘',
+                            type: 'line',
+                            data: yWriteIops2
+                        }
+                    ]
+                });
+
+            }
+
+        },
+        error : function(errorMsg) {
+            //请求失败时执行该函数
+            alert("图表请求数据失败!");
+            WriteIopsChart.hideLoading();
+        }
+    })
+</script>
+<!--磁盘写入IO-->
+<script type="text/javascript">
+    //url传值
+    var urlValue = window.location.href;
+    urlValue = urlValue.split("?");
+
+    var hostid = urlValue[1];
+    console.log("url : "+ hostid);
+
+    // 基于准备好的dom，初始化echarts实例
+    var WriteIoChart = echarts.init(document.getElementById('WriteIo'));
+
+    // 指定图表的配置项和数据
+    // 显示标题，图例和空的坐标轴
+    WriteIoChart.setOption({
+        title: {
+            text: ''
+        },
+        legend: {
+            data:['单位：Bytes/s','系统盘','外挂磁盘'],
+            left:'left',
+
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        dataZoom: [
+            {
+                id: 'dataZoomX',
+                type: 'slider',
+                xAxisIndex: [0],
+                filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                start: 0,
+                end: 100,
+                zoomOnMouseWheel: 'shift',
+                slider:{
+                    bottom: '0'
+                }
+            },
+        ],
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {},
+            },
+            top:'22',
+
+        },
+        xAxis: {
+            data: []
+        },
+        yAxis: {
+            axisLabel: {
+                formatter: '{value} bytes/s'
+            },
+        },
+        series: [
+            {
+                name: '单位：Bytes/s',
+                type: 'line',
+                data: []
+            }, {
+                name: '系统盘',
+                type: 'line',
+                lineStyle:{
+                    normal:{
+                        color:"#BA55D3",
+                    }
+                },
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#BA55D3'
+                        }, {
+                            offset: 1,
+                            color: '#ffe'
+                        }])
+                    }
+                },
+                data: [],
+            }, {
+                name: '外挂磁盘',
+                type: 'line',
+                lineStyle:{
+                    normal:{
+                        color:"#BA55D3",
+                    }
+                },
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#BA55D3'
+                        }, {
+                            offset: 1,
+                            color: '#ffe'
+                        }])
+                    }
+                },
+                data: [],
+            }
+        ],
+        // dataZoom:{
+        //     realtime:true, //拖动滚动条时是否动态的更新图表数据
+        //     height:25,//滚动条高度
+        //     start:40,//滚动条开始位置（共100等份）
+        //     end:65//结束位置（共100等份）
+        // }
+
+    });
+
+    WriteIoChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
+
+    var xWriteIo=[];    //类别数组（实际用来盛放X轴坐标值）
+    var yWriteIo1=[];    //数据数组（实际用来盛放Y坐标值）
+    var yWriteIo2=[];
+    $.ajax({
+        type : "post",
+        async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "/getOneDayWriteIoData",    //请求发送到TestServlet处
+        data : {"id":hostid},
+        dataType : "json",        //返回数据形式为json
+        success : function(result) {
+            //请求成功时执行该函数内容，result即为服务器返回的json对象
+            console.log(result);
+            if (result) {
+                result = result.reverse();
+
+                for(var i=0;i<result.length;i++){
+                    xWriteIo.push(result[i].data.tag1.date1.substr(11,18));    //x轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yWriteIo1.push(result[i].data.tag1.data1);    //y轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yWriteIo2.push(result[i].data.tag2.data2);    //y轴数据
+                }
+                WriteIoChart.hideLoading();    //隐藏加载动画
+                WriteIoChart.setOption({        //加载数据图表
+                    xAxis: {
+                        type: 'category',
+                        data: xWriteIo,
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name: '单位：Bytes/s',
+                            type: 'line',
+                            data: []
+                        }, {
+                            name: '系统盘',
+                            type: 'line',
+                            data: yWriteIo1
+                        }, {
+                            name: '外挂磁盘',
+                            type: 'line',
+                            data: yWriteIo2
+                        }
+                    ]
+                });
+
+            }
+
+        },
+        error : function(errorMsg) {
+            //请求失败时执行该函数
+            alert("图表请求数据失败!");
+            WriteIoChart.hideLoading();
+        }
+    })
+</script>
+<!--平均负载-->
+<script>
+    function LoadAverage() {
+        var loadAverage = echarts.init(document.getElementById('LoadAverage'));
+        optionLoadAverage = {
+            title: {
+                text: ''
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['一分钟','五分钟','十五分钟']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {},
+                },
+                top:'22',
+
+            },
+            dataZoom: [
+                {
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                    start: 0,
+                    end: 100,
+                    zoomOnMouseWheel: 'shift',
+                    slider:{
+                        bottom: '0'
+                    }
+                },
+            ],
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: []
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'一分钟',
+                    type:'line',
+                    data:[]
+                },
+                {
+                    name:'五分钟',
+                    type:'line',
+                    data:[]
+                },
+                {
+                    name:'十五分钟',
+                    type:'line',
+                    data:[]
+                },
+            ]
+        };
+
+        loadAverage.showLoading();
+        $.ajax({
+            url: "/getDayAverageLoadInfo",
+            type: "post",
+            data: {"hostip": hostip},
+            async: false,
+            datatype: "json",
+            success: function (data) {
+                var j = 0;
+                for (var i = data[1].length-1; i>=0;i --){
+                    optionLoadAverage.series[0].data[j] = data[1][i];
+                    optionLoadAverage.series[1].data[j] = data[2][i];
+                    optionLoadAverage.series[2].data[j] = data[3][i];
+                    optionLoadAverage.xAxis.data[j] = data[0][i];
+                    j = j + 1;
+                }
+            }
+        });
+
+        loadAverage.hideLoading();
+        loadAverage.setOption(optionLoadAverage,true);
+    }
+    LoadAverage();
+</script>
+<!--读取IOPS-->
+<script type="text/javascript">
+    //url传值
+    var urlValue = window.location.href;
+    urlValue = urlValue.split("?");
+
+    var hostid = urlValue[1];
+    console.log("url : "+ hostid);
+
+    // 基于准备好的dom，初始化echarts实例
+    var readIopsChart = echarts.init(document.getElementById('ReadIopsOneHourData'));
+
+    // 指定图表的配置项和数据
+    // 显示标题，图例和空的坐标轴
+    readIopsChart.setOption({
+        title: {
+            text: ''
+        },
+        legend: {
+            data:['单位：Count/s','系统盘','外挂磁盘'],
+            left:'left',
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        dataZoom: [
+            {
+                id: 'dataZoomX',
+                type: 'slider',
+                xAxisIndex: [0],
+                filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                start: 0,
+                end: 100,
+                zoomOnMouseWheel: 'shift',
+                slider:{
+                    bottom: '0'
+                }
+            },
+        ],
+        xAxis: {
+            data: []
+        },
+        yAxis: {
+            axisLabel: {
+                formatter: '{value} Counts/s'
+            },
+        },
+        series: [
+            {
+                name: '单位：Count/s',
+                type: 'line',
+                data: []
+            }, {
+                name: '系统盘',
+                type: 'line',
+                data: [],
+            }, {
+                name: '外挂磁盘',
+                type: 'line',
+                data: [],
+            }
+        ],
+        // dataZoom:{
+        //     realtime:true, //拖动滚动条时是否动态的更新图表数据
+        //     height:25,//滚动条高度
+        //     start:40,//滚动条开始位置（共100等份）
+        //     end:65//结束位置（共100等份）
+        // }
+
+    });
+
+    readIopsChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
+
+    var xreadIops=[];    //类别数组（实际用来盛放X轴坐标值）
+    var yreadIops1=[];    //数据数组（实际用来盛放Y坐标值）
+    var yreadIops2=[];
+    $.ajax({
+        type : "post",
+        async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "/getOneDayReadIopsData",    //请求发送到TestServlet处
+        data : {"id":hostid},
+        dataType : "json",        //返回数据形式为json
+        success : function(result) {
+            //请求成功时执行该函数内容，result即为服务器返回的json对象
+            console.log(result);
+            if (result) {
+                result = result.reverse();
+
+                for(var i=0;i<result.length;i++){
+                    xreadIops.push(result[i].data.tag1.date1.substr(11,18));    //x轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yreadIops1.push(result[i].data.tag1.data1);    //y轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yreadIops2.push(result[i].data.tag2.data2);    //y轴数据
+                }
+                readIopsChart.hideLoading();    //隐藏加载动画
+                readIopsChart.setOption({        //加载数据图表
+                    xAxis: {
+                        type: 'category',
+                        data: xreadIops,
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name: '单位：Count/s',
+                            type: 'line',
+                            data: []
+                        }, {
+                            name: '系统盘',
+                            type: 'line',
+                            data: yreadIops1
+                        }, {
+                            name: '外挂磁盘',
+                            type: 'line',
+                            data: yreadIops2
+                        }
+                    ]
+                });
+
+            }
+
+        },
+        error : function(errorMsg) {
+            //请求失败时执行该函数
+            alert("图表请求数据失败!");
+            readIopsChart.hideLoading();
+        }
+    })
+</script>
+<!--读取IO-->
+<script type="text/javascript">
+    //url传值
+    var urlValue = window.location.href;
+    urlValue = urlValue.split("?");
+
+    var hostid = urlValue[1];
+    console.log("url : "+ hostid);
+
+    // 基于准备好的dom，初始化echarts实例
+    var readIoChart = echarts.init(document.getElementById('ReadIoOneHourData'));
+
+    // 指定图表的配置项和数据
+    // 显示标题，图例和空的坐标轴
+    readIoChart.setOption({
+        title: {
+            text: ''
+        },
+        legend: {
+            data:['单位：Bytes/s','系统盘','外挂磁盘'],
+            left:'left',
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        dataZoom: [
+            {
+                id: 'dataZoomX',
+                type: 'slider',
+                xAxisIndex: [0],
+                filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                start: 0,
+                end: 100,
+                zoomOnMouseWheel: 'shift',
+                slider:{
+                    bottom: '0'
+                }
+            },
+        ],
+        xAxis: {
+            data: []
+        },
+        yAxis: {
+            axisLabel: {
+                formatter: '{value} Bytes/s'
+            },
+        },
+        series: [
+            {
+                name: '单位：Bytes/s',
+                type: 'line',
+                data: []
+            }, {
+                name: '系统盘',
+                type: 'line',
+                data: [],
+            }, {
+                name: '外挂磁盘',
+                type: 'line',
+                data: [],
+            }
+        ],
+        // dataZoom:{
+        //     realtime:true, //拖动滚动条时是否动态的更新图表数据
+        //     height:25,//滚动条高度
+        //     start:40,//滚动条开始位置（共100等份）
+        //     end:65//结束位置（共100等份）
+        // }
+
+    });
+
+    readIoChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
+
+    var xreadIo=[];    //类别数组（实际用来盛放X轴坐标值）
+    var nums1=[];    //数据数组（实际用来盛放Y坐标值）
+    var nums2=[];
+    $.ajax({
+        type : "post",
+        async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "/getOneDayReadIoData",    //请求发送到TestServlet处
+        data : {"id":hostid},
+        dataType : "json",        //返回数据形式为json
+        success : function(result) {
+            //请求成功时执行该函数内容，result即为服务器返回的json对象
+            console.log(result);
+            if (result) {
+                result = result.reverse();
+
+                for(var i=0;i<result.length;i++){
+                    xreadIo.push(result[i].data.tag1.date1.substr(11,18));    //x轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    nums1.push(result[i].data.tag1.data1);    //y轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    nums2.push(result[i].data.tag2.data2);    //y轴数据
+                }
+                readIoChart.hideLoading();    //隐藏加载动画
+                readIoChart.setOption({        //加载数据图表
+                    xAxis: {
+                        type: 'category',
+                        data: xreadIo,
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name: '单位：Bytes/s',
+                            type: 'line',
+                            data: []
+                        }, {
+                            name: '系统盘',
+                            type: 'line',
+                            data: nums1
+                        }, {
+                            name: '外挂磁盘',
+                            type: 'line',
+                            data: nums2
+                        }
+                    ]
+                });
+
+            }
+
+        },
+        error : function(errorMsg) {
+            //请求失败时执行该函数
+            alert("图表请求数据失败!");
+            readIoChart.hideLoading();
+        }
+    })
+</script>
+<!--CPU使用率数据-->
+<script>
+    function CpuUseUtil() {
+        var cpuUseUtil = echarts.init(document.getElementById('CpuUseUtil'));
+        optionCpuUseUtil = {
+            title: {
+                text: ''
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['cpu使用率：%']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {},
+                },
+                top:'22',
+
+            },
+            dataZoom: [
+                {
+                    id: 'dataZoomX',
+                    type: 'slider',
+                    xAxisIndex: [0],
+                    filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                    start: 0,
+                    end: 100,
+                    zoomOnMouseWheel: 'shift',
+                    slider:{
+                        bottom: '0'
+                    }
+                },
+            ],
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: []
+            },
+            yAxis: {
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value} %'
+                },
+            },
+            series: [
+                {
+                    name:'cpu使用率：%',
+                    type:'line',
+                    data:[]
+                },
+            ]
+        };
+
+        cpuUseUtil.showLoading();
+        $.ajax({
+            url: "/getDayCpuUseUtilInfo",
+            type: "post",
+            data: {"hostip": hostip},
+            async: false,
+            datatype: "json",
+            success: function (data) {
+                var j = 0;
+                for (var i = data[1].length-1; i>=0;i --){
+                    optionCpuUseUtil.series[0].data[j] = data[1][i];
+                    optionCpuUseUtil.xAxis.data[j] = data[0][i];
+                    j = j + 1;
+                }
+            }
+        });
+
+        cpuUseUtil.hideLoading();
+        cpuUseUtil.setOption(optionCpuUseUtil,true);
+    }
+    CpuUseUtil();
+</script>
+<!--公网IP流入-->
+<script type="text/javascript">
+    //url传值
+    var urlValue = window.location.href;
+    urlValue = urlValue.split("?");
+
+    var hostid = urlValue[1];
+    console.log("url : "+ hostid);
+
+    // 基于准备好的dom，初始化echarts实例
+    var ipInflowChart = echarts.init(document.getElementById('publicInflowOneHourData'));
+
+    // 指定图表的配置项和数据
+    // 显示标题，图例和空的坐标轴
+    ipInflowChart.setOption({
+        title: {
+            text: '',
+            textStyle:{
+                fontSize:'15',
+            },
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            },
+            top:'22',
+        },
+        legend: {
+            data:['单位：Kbps'],
+            left:'left',
+        },
+        dataZoom: [
+            {
+                id: 'dataZoomX',
+                type: 'slider',
+                xAxisIndex: [0],
+                filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                start: 0,
+                end: 100,
+                zoomOnMouseWheel: 'shift',
+                slider:{
+                    bottom: '0'
+                }
+            },
+        ],
+        xAxis: {
+            data: []
+        },
+        yAxis: {
+            axisLabel: {
+                formatter: '{value} Kbps'
+            },
+        },
+        series: [{
+            name: '单位：Kbps',
+            type: 'line',
+            lineStyle:{
+                normal:{
+                    color:"#1E90FF",
+                    left:'left',
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#1E90FF'
+                    }, {
+                        offset: 1,
+                        color: '#ffe'
+                    }]),
+                    left:'left',
+                }
+            },
+            data: []
+        }],
+        // dataZoom:{
+        //     realtime:true, //拖动滚动条时是否动态的更新图表数据
+        //     height:25,//滚动条高度
+        //     start:40,//滚动条开始位置（共100等份）
+        //     end:65//结束位置（共100等份）
+        // }
+
+    });
+
+    ipInflowChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
+
+    var xIpInflow =[];    //类别数组（实际用来盛放X轴坐标值）
+    var yIpInflow=[];    //数据数组（实际用来盛放Y坐标值）
+    $.ajax({
+        type : "post",
+        async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "/getOneDayPublicIpInflowData",    //请求发送到TestServlet处
+        data : {"id":hostid},
+        dataType : "json",        //返回数据形式为json
+        success : function(result) {
+            //请求成功时执行该函数内容，result即为服务器返回的json对象
+            if (result) {
+                result = result.reverse();
+
+                for(var i=0;i<result.length;i++){
+                    var temp = result[i].date.substr(11,18);
+                    xIpInflow.push(temp);    //x轴数据
+                }
+                for(var i=0;i<result.length;i++){
+                    yIpInflow.push(result[i].data);    //y轴数据
+                }
+                ipInflowChart.hideLoading();    //隐藏加载动画
+                ipInflowChart.setOption({        //加载数据图表
+                    xAxis: {
+                        type: 'category',
+                        data: xIpInflow,
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        type: 'line',
+                        data: yIpInflow
+                    }]
+                });
+
+            }
+
+        },
+        error : function(errorMsg) {
+            //请求失败时执行该函数
+            alert("图表请求数据失败!");
+            ipInflowChart.hideLoading();
+        }
+    })
+</script>
+<!--公网IP流出-->
+<script type="text/javascript">
+    //url传值
+    var urlValue = window.location.href;
+    urlValue = urlValue.split("?");
+
+    var hostid = urlValue[1];
+    console.log("url : "+ hostid);
+
+    // 基于准备好的dom，初始化echarts实例
+    var ipOutflowChart = echarts.init(document.getElementById('publicOutflowOneHourData'));
+
+    // 指定图表的配置项和数据
+    // 显示标题，图例和空的坐标轴
+    ipOutflowChart.setOption({
+        title: {
+            text: ''
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            },
+            top:'22',
+        },
+        legend: {
+            data:['单位：Kbps'],
+            left:'left',
+        },
+        dataZoom: [
+            {
+                id: 'dataZoomX',
+                type: 'slider',
+                xAxisIndex: [0],
+                filterMode: 'filter', // 设定为 'filter' 从而 X 的窗口变化会影响 Y 的范围。
+                start: 0,
+                end: 100,
+                zoomOnMouseWheel: 'shift',
+                slider:{
+                    bottom: '0'
+                }
+            },
+        ],
+        xAxis: {
+            data: []
+        },
+        yAxis: {
+            axisLabel: {
+                formatter: '{value} Kbps'
+            },
+        },
+        series: [{
+            name: '单位：Kbps',
+            type: 'line',
+            lineStyle:{
+                normal:{
+                    color:"#40E0D0",
+                }
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: '#40E0D0'
+                    }, {
+                        offset: 1,
+                        color: '#ffe'
+                    }]),
+                    left:'left',
+                }
+            },
+            data: []
+        }],
+        // dataZoom:{
+        //     realtime:true, //拖动滚动条时是否动态的更新图表数据
+        //     height:25,//滚动条高度
+        //     start:40,//滚动条开始位置（共100等份）
+        //     end:65//结束位置（共100等份）
+        // }
+
+    });
+
+    ipOutflowChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
+
+    var xIpOutflow=[];    //类别数组（实际用来盛放X轴坐标值）
+    var yIpOutflow=[];    //数据数组（实际用来盛放Y坐标值）
+    $.ajax({
+        type : "post",
+        async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url : "/getOneDayPublicIpOutflowData",    //请求发送到TestServlet处
+        data : {"id":hostid},
+        dataType : "json",        //返回数据形式为json
+        success : function(result) {
+            //请求成功时执行该函数内容，result即为服务器返回的json对象
+            if (result) {
+                result = result.reverse();
+                for(var i=0;i<result.length;i++){
+                    var temp = result[i].date.substr(11,18);
+                    xIpOutflow.push(temp);    //x轴数据
+                }
+
+                for(var i=0;i<result.length;i++){
+                    yIpOutflow.push(result[i].data);    //y轴数据
+                }
+                ipOutflowChart.hideLoading();    //隐藏加载动画
+                ipOutflowChart.setOption({        //加载数据图表
+                    xAxis: {
+                        type: 'category',
+                        data: xIpOutflow,
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        type: 'line',
+                        data: yIpOutflow
+                    }]
+                });
+
+            }
+
+        },
+        error : function(errorMsg) {
+            //请求失败时执行该函数
+            alert("图表请求数据失败!");
+            ipOutflowChart.hideLoading();
+        }
+    })
+</script>
+<!--告警弹窗-->
+<script>
+    noticeEveryFive();
+    $(document).ready(function () {
+        setInterval("noticeEveryFive()",1000*60*5);
+    });
+
+    function noticeEveryFive() {
+        $.ajax({
+            url: "/warn/notice",
+            type: "post",
+            dataType: "json",
+            success:function (data) {
+                console.log(data);
+                if (data.status == "warn"){
+                    layer.msg(data.reason, {
+                        icon: 3,
+                        time: 20000, //20s后自动关闭
+                        btn: ['WebShell','取消'],
+                        yes: function () {
+                            window.location.href = 'webshell.html';
+                        },
+                        btn2:function () {
+                            layer.close();
+                        },
+                    });
+                }
+            }
+        });
+    }
+
+</script>
+<!--退出登陆-->
+<script>
+    function logout() {
+        $.ajax({
+            url: "/logout",
+            type: "post",
+            dataType: "text",
+            success:function (data) {
+                layer.msg(data);
+                setTimeout(function () {
+                    window.location.href='login.html';
+                },1500);
+            }
+        });
+    }
+</script>
+<script>
+    function hourbase() {
+        window.location.href='hourbasemonitor.html?'+hostid+'?'+hostip;
+    }
+    function daybase() {
+        window.location.href='daybasemonitor.html?'+hostid+'?'+hostip;
+    }
+    function weekbase() {
+        window.location.href='weekbasemonitor.html?'+hostid+'?'+hostip;
+    }
+    function refresh() {
+        window.location.reload();
+    }
+</script>
+
+</body>
+</html>

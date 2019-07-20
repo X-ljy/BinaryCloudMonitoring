@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SeverMonitor</title>  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link href="assets/css/default.css" rel="stylesheet" />
+  <link rel="stylesheet" href="dist/css/alibaba/iconfont.css">
+
+  <!--引入layui-->
+  <script  src="dist/js/layui/layui.all.js"></script>
+  <link rel="stylesheet" href="dist/js/layui/css/layui.css">
+</head>
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="index.html" class="nav-link">Home</a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" onclick="logout()">
+          <i class="fa fa-lg fa-sign-out"></i>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
+                class="fa fa-lg fa-th-large"></i></a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" id="SideBar">
+    <!-- Brand Logo -->
+    <a href="index.html" class="brand-link">
+      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">Binary</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="dist/img/avatar04.png" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">管理员</a>
+          <a href="accountset.html" class="d-block" id="account" >账号设置</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li  class="nav-item" >
+            <a href="index.html" class="nav-link"id="index">
+              <i class="fa fa-dashboard nav-icon"></i>
+              <p>首页</p>
+            </a>
+          </li>
+
+          <li  class="nav-item" >
+            <a href="hostlist.html" class="nav-link" id="hostList">
+              <i class="fa fa-server nav-icon"></i>
+              <p>服务器列表</p>
+            </a>
+          </li>
+
+          <li  class="nav-item" >
+            <a href="imagelist.html" class="nav-link" id="imageList">
+              <i class="fa fa-bullseye nav-icon"></i>
+              <p>镜像管理</p>
+            </a>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="" class="nav-link" id="monitor">
+              <i class="nav-icon fa fa-eye"></i>
+              <p>
+                <i class="right fa fa-angle-left"></i>
+                服务器监控
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="basehostlist.html" class="nav-link" id="baseMonitor">
+                  <i class="fa fa-tag nav-icon"></i>
+                  <p>基础性能监控</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="prochostlist.html" class="nav-link" id="processMonitor">
+                  <i class="fa fa-tag nav-icon"></i>
+                  <p>进程监控</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="" class="nav-link" id="appmonitor">
+              <i class="nav-icon fa fa-cubes"></i>
+              <p>
+                <i class="right fa fa-angle-left"></i>
+                应用服务监控
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="mysqlMonitor.html" class="nav-link" id="MysqlMonitor">
+                  <i class="fa fa-tag nav-icon"></i>
+                  <p>MySQL性能监控</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javaMonitor.html" class="nav-link" id="javaMonitor">
+                  <i class="fa fa-tag nav-icon"></i>
+                  <p>Tomcat性能监控</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javaThread.html" class="nav-link" id="threadMonitor">
+                  <i class="fa fa-tag nav-icon"></i>
+                  <p>JVM线程信息</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li  class="nav-item" >
+            <a href="network.html" class="nav-link" id="network">
+              <i class="fa fa-rss nav-icon"></i>
+              <p>网络管理</p>
+            </a>
+          </li>
+
+          <li  class="nav-item" >
+            <a href="storage.html" class="nav-link" id="storage">
+              <i class="fa fa-database nav-icon"></i>
+              <p>存储管理</p>
+            </a>
+          </li>
+          <li  class="nav-item" >
+            <a href="snap.html" class="nav-link" id="snap">
+              <i class="fa fa-camera nav-icon"></i>
+              <p>快照管理</p>
+            </a>
+          </li>
+          <li  class="nav-item" >
+            <a href="logmanager.html" class="nav-link" id="logImport">
+              <i class="fa fa-cloud-download nav-icon"></i>
+              <p>日志管理</p>
+            </a>
+          </li>
+          <li  class="nav-item" >
+            <a href="firewalllist.html" class="nav-link" id="firewalllist">
+              <i class="fa fa-outdent nav-icon"></i>
+              <p>防火墙</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="" class="nav-link" id="monitor1">
+              <i class="nav-icon fa fa-bell"></i>
+              <p>
+                <i class="right fa fa-angle-left"></i>
+                监控告警
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="ruleslist.html" class="nav-link" id="ruleList">
+                  <i class="fa fa-tag nav-icon"></i>
+                  <p>告警规则</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="rulesRecord.html" class="nav-link" id="ruleRecord">
+                  <i class="fa fa-tag nav-icon"></i>
+                  <p>告警记录</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li  class="nav-item" >
+            <a href="webshell.html" class="nav-link" id="webshell">
+              <i class="fa fa-gears nav-icon"></i>
+              <p>WebShell</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>存储管理</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="index.html">首页</a></li>
+              <li class="breadcrumb-item active">存储管理</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="row" id="content-header">
+
+        </div>
+      <!-- Default box -->
+      <div id="volume">
+
+      </div>
+      <!-- /.card -->
+
+    </section>
+
+    <!--模态窗口-->
+    <div class="modal fade" id="myModal-uninstallVolume" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-hidden="true">×
+            </button>
+            <h4 class="modal-title" >
+            </h4>
+          </div>
+          <div class="modal-body" id="volumeName">
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default"
+                    data-dismiss="modal">关闭
+            </button>
+            <button type="button" onclick="uninsVolume()" class="btn btn-primary">
+              确定
+            </button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="myModal-installDisk" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-hidden="true">×
+            </button>
+            <h4 class="modal-title" >
+            </h4>
+          </div>
+          <div class="modal-body" >
+            <form class="form-horizontal" id="installDisk">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="volumeId" class="col-sm-2 control-label">磁盘Id</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="volumeId" id="volumeId" placeholder="volumeId" readonly>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label" for="hostId">选择挂载的主机</label>
+                  <select name="hostId" id="hostId" class="form-control">
+
+                  </select>
+                </div>
+                <div class="form-group">
+                  <button type="button"  style="width: 65px;height: 37px" onclick="installVolume()" class="btn btn-primary ">提交</button>
+                  <button type="button"  style="width: 65px;height: 37px"  data-dismiss="modal" class="btn btn-primary ">取消</button>
+                </div>
+
+              </div>
+              <!-- /.card-body -->
+              <!-- /.card-footer -->
+            </form>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!--模态窗口-->
+    <div class="modal fade" id="myModal-creatVolumeSnap" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                    aria-hidden="true">×
+            </button>
+            <h4 class="modal-title" >
+            </h4>
+          </div>
+          <div class="modal-body" >
+            <form class="form-horizontal" id="creatVolumeSnap">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="name" class="col-sm-2 control-label">名称</label>
+
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="description" class="col-sm-2 control-label">描述</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="description" id="description" placeholder="Description">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="diskId" class="col-sm-2 control-label">磁盘Id</label>
+                  <div class="col-sm-10">
+                    <input type="email" class="form-control" name="volumeId" id="diskId" placeholder="diskId" readonly>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <button type="button"  style="width: 65px;height: 37px" onclick="creatVolumeSnap()" class="btn btn-primary ">提交</button>
+                  <button type="button"  style="width: 65px;height: 37px"  data-dismiss="modal" class="btn btn-primary ">取消</button>
+                </div>
+
+              </div>
+              <!-- /.card-body -->
+              <!-- /.card-footer -->
+            </form>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- SlimScroll -->
+<script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+
+
+<script>
+
+  var list;
+function getVolume() {
+    $.ajax({
+        url: "/volume/query",
+        type: "post",
+        async: false,
+        datatype: "json",
+        success: function (data) {
+            console.log(data);
+            var div = $("#volume");
+            var div1 = $("#content-header");
+            for (var i = 0;i < data.length;i ++){
+                if (data[i].statusNum == 0){
+                    div.append(
+                        '<div class="card card-info">\n' +
+                        '        <div class="card-header">\n' +
+                        '          <h3 class="card-title">磁盘'+ data[i].name +'</h3>\n' +
+                        '\n' +
+                        '          <div class="card-tools">\n' +
+                        '            <button type="button" class="btn btn-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">\n' +
+                        '              <i class="fa fa-minus"></i></button>\n' +
+                        '            <button type="button" class="btn btn-tool" data-widget="remove" data-toggle="tooltip" title="Remove">\n' +
+                        '              <i class="fa fa-times"></i></button>\n' +
+                        '          </div>\n' +
+                        '        </div>\n' +
+                        '        <div class="card-body" >'+
+                        '<div class="inner_content-box">' +
+                        '<table class="table-box">' +
+                        '<tbody>' +
+                        '<tr class="tr-first">' +
+                        '<td class="tdRight">磁盘id：</td>' +
+                        '<td class="tdLeft">'+ data[i].id +'</td>' +
+                        '<td class="tdRight">磁盘名称：</td>' +
+                        '<td class="tdLeft">'+ data[i].name +'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td class="tdRight">所属用户：</td>' +
+                        '<td class="tdLeft">'+ data[i].ownerId +'</td>' +
+                        '<td class="tdRight">支付类型：</td>' +
+                        '<td class="tdLeft">'+ data[i].payType +'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td class="tdRight">产品型号Id：</td>' +
+                        '<td class="tdLeft">'+ data[i].productModelId +'</td>' +
+                        '<td class="tdRight">产品状态：</td>' +
+                        '<td class="tdLeft">'+ data[i].productStatus +'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td class="tdRight">磁盘大小：</td>' +
+                        '<td class="tdLeft">'+ data[i].size +'GB</td>' +
+                        '<td class="tdRight">快照数量：</td>' +
+                        '<td class="tdLeft">'+ data[i].snapshotCount +'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td class="tdRight">磁盘类型：</td>' +
+                        '<td class="tdLeft">'+ data[i].type +'</td>' +
+                        '<td class="tdRight">磁盘状态：</td>' +
+                        '<td class="tdLeft">'+ data[i].status +'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td class="tdRight">创建卷快照标识：</td>' +
+                        '<td class="tdLeft">'+ data[i].snapshotId +'</td>' +
+                        '<td class="tdRight">关闭时间：</td>' +
+                        '<td class="tdLeft">'+ data[i].closrTime +'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td class="tdRight">后端类型：</td>' +
+                        '<td class="tdLeft">'+ data[i].backType +'</td>' +
+                        '<td class="tdRight">Uuid：</td>' +
+                        '<td class="tdLeft">'+ data[i].uuid +'</td>' +
+                        '</tr>' +
+                        '</tbody>' +
+                        '</table>' +
+                        '</div>'+
+                        '<div class="h3-title">' +
+                        '挂载信息' +
+                        '</div>' +
+                        '<div class="inner_content-box" >' +
+                        '<table class="table-box">' +
+                        '<tbody>' +
+                        '<tr class="tr-first">' +
+                        '<td class="tdRight">挂载时间：</td>' +
+                        '<td class="tdLeft">'+ data[i].attachmentSets[0].attachTime +'</td>' +
+                        '<td class="tdRight">操作系统类型：</td>' +
+                        '<td class="tdLeft">'+ data[i].attachmentSets[0].checkOffLine +'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td class="tdRight">删除主机时删除卷：</td>' +
+                        '<td class="tdLeft">'+ data[i].attachmentSets[0].deleteOnTermination +'</td>' +
+                        '<td class="tdRight">类型：</td>' +
+                        '<td class="tdLeft">'+ data[i].attachmentSets[0].index +'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td class="tdRight">挂载的虚拟机：</td>' +
+                        '<td class="tdLeft">'+ data[i].attachmentSets[0].instanceId +'</td>' +
+                        '<td class="tdRight">挂载状态：</td>' +
+                        '<td class="tdLeft">'+ data[i].attachmentSets[0].status +'</td>' +
+                        '</tr>' +
+                        '</tbody>' +
+                        '</table>' +
+                        '</div>' +
+                        '        </div>\n' +
+                        '        <!-- /.card-body -->\n' +
+                        '        <div class="card-footer">\n' +
+                        '          <button type="button" style="width: 80px" onclick="uninstallVolume(&quot;'+ data[i].id +'&quot;,&quot;'+ data[i].attachmentSets[0].instanceId +'&quot;)"  class="btn btn-block btn-danger float-right">卸载</button>' +
+                        '          <button type="button" style="width: 90px" onclick="volumeSnap(&quot;'+ data[i].id +'&quot;)" class="btn btn-block btn-primary float-left">创建快照</button>' +
+                        '        </div>\n' +
+                        '        <!-- /.card-footer-->\n' +
+                        '      </div>'
+                    );
+                }
+                else {
+                    div.append(
+                        '<div class="card card-primary">\n' +
+                        '        <div class="card-header">\n' +
+                        '          <h3 class="card-title">磁盘'+ data[i].name +'</h3>\n' +
+                        '\n' +
+                        '          <div class="card-tools">\n' +
+                        '            <button type="button" class="btn btn-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">\n' +
+                        '              <i class="fa fa-minus"></i></button>\n' +
+                        '            <button type="button" class="btn btn-tool" data-widget="remove" data-toggle="tooltip" title="Remove">\n' +
+                        '              <i class="fa fa-times"></i></button>\n' +
+                        '          </div>\n' +
+                        '        </div>\n' +
+                        '        <div class="card-body" >'+
+                        '<div class="inner_content-box">' +
+                        '<table class="table-box">' +
+                        '<tbody>' +
+                        '<tr class="tr-first">' +
+                        '<td class="tdRight">磁盘id：</td>' +
+                        '<td class="tdLeft">'+ data[i].id +'</td>' +
+                        '<td class="tdRight">磁盘名称：</td>' +
+                        '<td class="tdLeft">'+ data[i].name +'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td class="tdRight">所属用户：</td>' +
+                        '<td class="tdLeft">'+ data[i].ownerId +'</td>' +
+                        '<td class="tdRight">支付类型：</td>' +
+                        '<td class="tdLeft">'+ data[i].payType +'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td class="tdRight">产品型号Id：</td>' +
+                        '<td class="tdLeft">'+ data[i].productModelId +'</td>' +
+                        '<td class="tdRight">产品状态：</td>' +
+                        '<td class="tdLeft">'+ data[i].productStatus +'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td class="tdRight">磁盘大小：</td>' +
+                        '<td class="tdLeft">'+ data[i].size +'GB</td>' +
+                        '<td class="tdRight">快照数量：</td>' +
+                        '<td class="tdLeft">'+ data[i].snapshotCount +'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td class="tdRight">磁盘类型：</td>' +
+                        '<td class="tdLeft">'+ data[i].type +'</td>' +
+                        '<td class="tdRight">磁盘状态：</td>' +
+                        '<td class="tdLeft">'+ data[i].status +'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td class="tdRight">创建卷快照标识：</td>' +
+                        '<td class="tdLeft">'+ data[i].snapshotId +'</td>' +
+                        '<td class="tdRight">关闭时间：</td>' +
+                        '<td class="tdLeft">'+ data[i].closrTime +'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td class="tdRight">后端类型：</td>' +
+                        '<td class="tdLeft">'+ data[i].backType +'</td>' +
+                        '<td class="tdRight">Uuid：</td>' +
+                        '<td class="tdLeft">'+ data[i].uuid +'</td>' +
+                        '</tr>' +
+                        '</tbody>' +
+                        '</table>' +
+                        '</div>'+
+                        '<div class="h3-title">' +
+                        '挂载信息' +
+                        '</div>' +
+                        '<div class="inner_content-box" >' +
+                        '<table class="table-box">' +
+                        '<tbody>' +
+                        '<tr class="tr-first">' +
+                        '<td class="tdRight">挂载时间：</td>' +
+                        '<td class="tdLeft">'+ data[i].attachmentSets[0].attachTime +'</td>' +
+                        '<td class="tdRight">操作系统类型：</td>' +
+                        '<td class="tdLeft">'+ data[i].attachmentSets[0].checkOffLine +'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td class="tdRight">删除主机时删除卷：</td>' +
+                        '<td class="tdLeft">'+ data[i].attachmentSets[0].deleteOnTermination +'</td>' +
+                        '<td class="tdRight">类型：</td>' +
+                        '<td class="tdLeft">'+ data[i].attachmentSets[0].index +'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td class="tdRight">挂载的虚拟机：</td>' +
+                        '<td class="tdLeft">'+ data[i].attachmentSets[0].instanceId +'</td>' +
+                        '<td class="tdRight">挂载状态：</td>' +
+                        '<td class="tdLeft">'+ data[i].attachmentSets[0].status +'</td>' +
+                        '</tr>' +
+                        '</tbody>' +
+                        '</table>' +
+                        '</div>' +
+                        '        </div>\n' +
+                        '        <!-- /.card-body -->\n' +
+                        '        <div class="card-footer">\n' +
+                        '          <button type="button" style="width: 80px" onclick="installDisk(&quot;'+ data[i].id +'&quot;)" class="btn btn-block btn-info float-right">挂载</button>' +
+                        '          <button type="button" style="width: 90px" onclick="volumeSnap(&quot;'+ data[i].id +'&quot;)" class="btn btn-block btn-primary float-left">创建快照</button>' +
+                        '        </div>\n' +
+                        '        <!-- /.card-footer-->\n' +
+                        '      </div>'
+                    );
+                }
+
+            }
+            var num = data.length;
+            var attchNum = 0;
+            var unattNum = 0;
+            var dateNum = 0;
+            for (var k = 0;k <data.length;k ++){
+                if (data[k].statusNum == 0){
+                    attchNum = attchNum + 1;
+                }
+                else {
+                    unattNum = unattNum + 1;
+                }
+                if(data[k].attachmentSets[0].index === "系统盘"){
+                    dateNum = dateNum + 1;
+                }
+            }
+            div1.append(
+            '<div class="col-12 col-sm-6 col-md-3">\n' +
+            '            <div class="info-box">\n' +
+            '              <span class="info-box-icon bg-info elevation-1"><i class="fa fa-database"></i></span>\n' +
+            '\n' +
+            '              <div class="info-box-content">\n' +
+            '                <span class="info-box-text">磁盘总数</span>\n' +
+            '                <span class="info-box-number">\n' +
+            num+
+            '                  <small>个</small>\n' +
+            '                </span>\n' +
+            '              </div>\n' +
+            '              <!-- /.info-box-content -->\n' +
+            '            </div>\n' +
+            '            <!-- /.info-box -->\n' +
+            '          </div>\n' +
+            '          <!-- /.col -->\n' +
+            '          <div class="col-12 col-sm-6 col-md-3">\n' +
+            '            <div class="info-box mb-3">\n' +
+            '              <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-pie-chart"></i></span>\n' +
+            '\n' +
+            '              <div class="info-box-content">\n' +
+            '                <span class="info-box-text">已挂载磁盘数</span>\n' +
+            '                <span class="info-box-number">'+ attchNum +'<small>个</small></span>\n' +
+            '              </div>\n' +
+            '              <!-- /.info-box-content -->\n' +
+            '            </div>\n' +
+            '            <!-- /.info-box -->\n' +
+            '          </div>\n' +
+            '          <!-- /.col -->\n'+
+                '<div class="col-12 col-sm-6 col-md-3">\n' +
+                '            <div class="info-box mb-3">\n' +
+                '              <span class="info-box-icon bg-success elevation-1"><i class="fa fa-steam-square"></i></span>\n' +
+                '\n' +
+                '              <div class="info-box-content">\n' +
+                '                <span class="info-box-text">未挂载磁盘数</span>\n' +
+                '                <span class="info-box-number">'+ unattNum +'</span>\n' +
+                '              </div>\n' +
+                '            </div>\n' +
+                '          </div>\n' +
+                '\n' +
+                '          <div class="col-12 col-sm-6 col-md-3">\n' +
+                '            <div class="info-box mb-3">\n' +
+                '              <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-server"></i></span>\n' +
+                '\n' +
+                '              <div class="info-box-content">\n' +
+                '                <span class="info-box-text">系统盘数</span>\n' +
+                '                <span class="info-box-number">'+ dateNum +'</span>\n' +
+                '              </div>\n' +
+                '            </div>\n' +
+                '          </div>'
+            );
+        }
+    });
+
+}
+
+function getHostId(){
+    $.ajax({
+        url: "/volume/hostId",
+        type: "post",
+        async: false,
+        datatype: "json",
+        success: function (data) {
+            for (var i = 0;i<data.length;i++){
+                var div = $("#hostId");
+                div.append(
+                    '<option value="'+ data[i] +'">'+ data[i] +'</option>'
+                )
+            }
+            list = data;
+            console.log(list);
+        }
+    });
+}
+
+function installDisk(volumeId){
+    document.getElementById('volumeId').value = volumeId;
+    $("#myModal-installDisk").modal({
+        relatedTarget: this,
+    });
+}
+
+
+  function volumeSnap(volumeId){
+      document.getElementById('diskId').value = volumeId;
+      $("#myModal-creatVolumeSnap").modal({
+          relatedTarget: this,
+      });
+  }
+
+
+getVolume();
+getHostId();
+
+
+</script>
+
+<script>
+ var volumeId;
+ var instanceId;
+
+
+  function uninstallVolume(VolumeId,InstanceId) {
+      volumeId = VolumeId;
+      instanceId = InstanceId;
+      var div = $("#volumeName");
+      div.empty();
+      div.append(
+          '确定要卸载主机'+instanceId+'上的磁盘'+volumeId+'吗？'
+      );
+      $("#myModal-uninstallVolume").modal({
+          relatedTarget: this,
+      });
+
+  }
+
+  function uninsVolume() {
+      $.ajax({
+          url: "/volume/uninstall",
+          type: "post",
+          data:{"volumeId":volumeId,"hostId":instanceId},
+          dataType: "text",
+          success: function (data) {
+              layer.msg(data, {
+                  icon: 1,
+                  time: 20000, //20s后自动关闭
+                  btn: ['确定'],
+                  yes: function () {
+                      window.location.reload();
+                  }
+              });
+          }
+      });
+  }
+
+  function installVolume() {
+      $.ajax({
+          //几个参数需要注意一下
+          type: "POST",//方法类型
+          url: "/volume/install",//url
+          data: $('#installDisk').serialize(),
+          dataType: "text",
+          success: function (data) {
+              layer.msg(data, {
+                  icon: 1,
+                  time: 20000, //20s后自动关闭
+                  btn: ['确定'],
+                  yes: function () {
+                      window.location.reload();
+                  }
+              });
+          }
+      });
+  }
+
+
+ function creatVolumeSnap() {
+     $.ajax({
+         //几个参数需要注意一下
+         type: "POST",//方法类型
+         url: "/volume/snap/creat",//url
+         data: $('#creatVolumeSnap').serialize(),
+         dataType: "text",
+         success: function (data) {
+             console.log(data)
+             layer.msg(data, {
+                 icon: 1,
+                 time: 20000, //20s后自动关闭
+                 btn: ['确定'],
+                 yes: function () {
+                     window.location.reload();
+                 }
+             });
+         }
+     });
+ }
+
+</script>
+
+<script>
+    noticeEveryFive();
+    $(document).ready(function () {
+        setInterval("noticeEveryFive()",1000*60*5);
+    });
+
+    function noticeEveryFive() {
+        $.ajax({
+            url: "/warn/notice",
+            type: "post",
+            dataType: "json",
+            success:function (data) {
+                console.log(data);
+                if (data.status == "warn"){
+                    layer.msg(data.reason, {
+                        icon: 3,
+                        time: 20000, //20s后自动关闭
+                        btn: ['WebShell','取消'],
+                        yes: function () {
+                            window.location.href = 'webshell.html';
+                        },
+                        btn2:function () {
+                            layer.close();
+                        },
+                    });
+                }
+            }
+        });
+    }
+
+</script>
+
+<script>
+    function logout() {
+        $.ajax({
+            url: "/logout",
+            type: "post",
+            dataType: "text",
+            success:function (data) {
+                layer.msg(data);
+                setTimeout(function () {
+                    window.location.href='login.html';
+                },1500);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

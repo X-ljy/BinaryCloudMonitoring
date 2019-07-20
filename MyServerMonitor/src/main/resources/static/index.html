@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <title>SeverMonitor</title>
+
+    <link rel="stylesheet" href="dist/css/general.css">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!--引入layui-->
+    <script  src="dist/js/layui/layui.all.js"></script>
+    <link rel="stylesheet" href="dist/js/layui/css/layui.css">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="index.html" class="nav-link">Home</a>
+            </li>
+        </ul>
+
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto" >
+
+            <li class="nav-item">
+                <a class="nav-link" onclick="logout()">
+                    <i class="fa fa-lg fa-sign-out"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" style="width: 300px" data-widget="control-sidebar" data-slide="true" href="#">
+                    <i class="fa fa-lg fa-th-large"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" id="SideBar">
+      <!-- Brand Logo -->
+      <a href="index.html" class="brand-link">
+          <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+               style="opacity: .8">
+          <span class="brand-text font-weight-light">Binary</span>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+          <!-- Sidebar user panel (optional) -->
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+              <div class="image">
+                  <img src="dist/img/avatar04.png" class="img-circle elevation-2" alt="User Image">
+              </div>
+              <div class="info">
+                  <a href="#" class="d-block">管理员</a>
+                  <a href="accountset.html" class="d-block" id="account" >账号设置</a>
+              </div>
+          </div>
+
+          <!-- Sidebar Menu -->
+          <nav class="mt-2">
+              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                  <!-- Add icons to the links using the .nav-icon class
+                       with font-awesome or any other icon font library -->
+                  <li  class="nav-item" >
+                      <a href="index.html" class="nav-link"id="index">
+                          <i class="fa fa-dashboard nav-icon"></i>
+                          <p>首页</p>
+                      </a>
+                  </li>
+
+                  <li  class="nav-item" >
+                      <a href="hostlist.html" class="nav-link" id="hostList">
+                          <i class="fa fa-server nav-icon"></i>
+                          <p>服务器列表</p>
+                      </a>
+                  </li>
+
+                  <li  class="nav-item" >
+                      <a href="imagelist.html" class="nav-link" id="imageList">
+                          <i class="fa fa-bullseye nav-icon"></i>
+                          <p>镜像管理</p>
+                      </a>
+                  </li>
+
+                  <li class="nav-item has-treeview">
+                      <a href="" class="nav-link" id="monitor">
+                          <i class="nav-icon fa fa-eye"></i>
+                          <p>
+                              <i class="right fa fa-angle-left"></i>
+                              服务器监控
+                          </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                              <a href="basehostlist.html" class="nav-link" id="baseMonitor">
+                                  <i class="fa fa-tag nav-icon"></i>
+                                  <p>基础性能监控</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="prochostlist.html" class="nav-link" id="processMonitor">
+                                  <i class="fa fa-tag nav-icon"></i>
+                                  <p>进程监控</p>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+
+                  <li class="nav-item has-treeview">
+                      <a href="" class="nav-link" id="appmonitor">
+                          <i class="nav-icon fa fa-cubes"></i>
+                          <p>
+                              <i class="right fa fa-angle-left"></i>
+                              应用服务监控
+                          </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                              <a href="mysqlMonitor.html" class="nav-link" id="MysqlMonitor">
+                                  <i class="fa fa-tag nav-icon"></i>
+                                  <p>MySQL性能监控</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="javaMonitor.html" class="nav-link" id="javaMonitor">
+                                  <i class="fa fa-tag nav-icon"></i>
+                                  <p>Tomcat性能监控</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="javaThread.html" class="nav-link" id="threadMonitor">
+                                  <i class="fa fa-tag nav-icon"></i>
+                                  <p>JVM线程信息</p>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+
+                  <li  class="nav-item" >
+                      <a href="network.html" class="nav-link" id="network">
+                          <i class="fa fa-rss nav-icon"></i>
+                          <p>网络管理</p>
+                      </a>
+                  </li>
+
+                  <li  class="nav-item" >
+                      <a href="storage.html" class="nav-link" id="storage">
+                          <i class="fa fa-database nav-icon"></i>
+                          <p>存储管理</p>
+                      </a>
+                  </li>
+                  <li  class="nav-item" >
+                      <a href="snap.html" class="nav-link" id="snap">
+                          <i class="fa fa-camera nav-icon"></i>
+                          <p>快照管理</p>
+                      </a>
+                  </li>
+                  <li  class="nav-item" >
+                      <a href="logmanager.html" class="nav-link" id="logImport">
+                          <i class="fa fa-cloud-download nav-icon"></i>
+                          <p>日志管理</p>
+                      </a>
+                  </li>
+                  <li  class="nav-item" >
+                      <a href="firewalllist.html" class="nav-link" id="firewalllist">
+                          <i class="fa fa-outdent nav-icon"></i>
+                          <p>防火墙</p>
+                      </a>
+                  </li>
+                  <li class="nav-item has-treeview">
+                      <a href="" class="nav-link" id="monitor1">
+                          <i class="nav-icon fa fa-bell"></i>
+                          <p>
+                              <i class="right fa fa-angle-left"></i>
+                              监控告警
+                          </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                              <a href="ruleslist.html" class="nav-link" id="ruleList">
+                                  <i class="fa fa-tag nav-icon"></i>
+                                  <p>告警规则</p>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="rulesRecord.html" class="nav-link" id="ruleRecord">
+                                  <i class="fa fa-tag nav-icon"></i>
+                                  <p>告警记录</p>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+                  <li  class="nav-item" >
+                      <a href="webshell.html" class="nav-link" id="webshell">
+                          <i class="fa fa-gears nav-icon"></i>
+                          <p>WebShell</p>
+                      </a>
+                  </li>
+              </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">首页</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="index.html">首页</a></li>
+                <li class="breadcrumb-item active">监控集群状态</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3 id="zkversion" >Three</h3>
+
+                <p> zookeeper节点数</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">zookeeper ：3.4.11</a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>Three</h3>
+
+                <p>ElasticSearch节点数</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="#" class="small-box-footer">ElasticSearch ：5.6.4</a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h3>Three</h3>
+
+                    <p>Kafka节点数</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="#" class="small-box-footer">Kafka ：1.1.1</a>
+            </div>
+        </div>
+
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-secondary">
+                    <div class="inner">
+                        <h3 href="http://111.116.20.126/email/">邮箱系统</h3>
+
+                        <a href="http://111.116.20.126/email/">点击进入</a>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-pie-graph"></i>
+                    </div>
+                    <a href="http://111.116.20.126/email/" class="small-box-footer">Email</a>
+                </div>
+            </div>
+
+        </div>
+
+  
+          <div class="row" id="zkInfo" >
+
+              <!-- /.col -->
+
+              <!-- /.col -->
+          </div>
+
+
+          <!-- TABLE: LATEST ORDERS -->
+          <div class="card">
+              <div class="card-header border-transparent">
+                  <h3 class="card-title">ES集群索引信息</h3>
+
+                  <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-widget="collapse">
+                          <i class="fa fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-widget="remove">
+                          <i class="fa fa-times"></i>
+                      </button>
+                  </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                  <div class="table-responsive">
+                      <table class="table m-0" id="esIndexInfo">
+                          <thead>
+                          <tr>
+                              <th>索引名称</th>
+                              <th>分片数</th>
+                              <th>状态</th>
+                              <th>健康值</th>
+                              <th>文档数量</th>
+                          </tr>
+                          </thead>
+                          <tbody >
+
+                          </tbody>
+                      </table>
+                  </div>
+                  <!-- /.table-responsive -->
+              </div>
+
+          </div>
+          <!-- /.card -->
+      </div>
+    </section>
+  </div>
+          <!-- Control Sidebar -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+  <!-- /.content-wrapper -->
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.js"></script>
+
+<!-- OPTIONAL SCRIPTS -->
+<script src="dist/js/demo.js"></script>
+
+<!-- PAGE PLUGINS -->
+<!-- SparkLine -->
+<script src="plugins/sparkline/jquery.sparkline.min.js"></script>
+<!-- jVectorMap -->
+<script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<!-- SlimScroll 1.3.0 -->
+<script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- ChartJS 1.0.2 -->
+<script src="plugins/chartjs-old/Chart.min.js"></script>
+
+<!-- PAGE SCRIPTS -->
+<script src="dist/js/pages/dashboard2.js"></script>
+<script>
+    function getIndexInfo() {
+        $.ajax({
+            url:"/getEsInfo",
+            type:"post",
+            async:false,
+            datatype:"json",
+            success:function (esInfo) {
+                var table = $("#esIndexInfo");
+
+                json = $.parseJSON(esInfo);
+                list = json.indexinfo;
+                for(i in list ){
+                    table.append(
+                        '<tr >'+
+                        '<td style="color: #000000" >' +'<a  class="badge bg-light"  style="font-size: larger ;color: #00000">' +list[i].indexname +'</a>'+ '</td>'+
+                        '<td >' +'<a class="badge bg-info"  style="font-size: larger ;color: #000000">'+ list[i].shardnum + '</a>'+'</td>'+
+                        '<td >'+'<a  class="badge bg-light"  style="font-size: larger ;color: #00000">'+ list[i].status + '</a>' +'</td>'+
+                        '<td >'+'<a class="badge bg-success" style="font-size: larger ;color: #00000">'+ list[i].health + '</a>' +'</td>'+
+                        '<td >'+'<a class="badge bg-info" style="font-size: larger ;color: #00000">' + list[i].docscount + '</a>'  +'</td>'
+                    );
+                }
+            }
+        });
+
+    }
+    getIndexInfo();
+</script>
+
+<script>
+    function getZkInfo(){
+    $.ajax({
+        url:"/getZkInfo",
+        type:"post",
+        async:false,
+        dataType:"json",
+        success:function (zkInfo){
+            console.log("getZkInfo"+zkInfo);
+            var div = $("#zkInfo");
+            for (key in zkInfo) {
+
+                div.append('<div class="col-md-3">\n' +
+                    '\n' +
+                    '            <!-- Profile Image -->\n' +
+                    '            <div class="card card-primary card-outline">\n' +
+                    '              <div class="card-body box-profile">\n' +
+                    '                <div class="text-center">\n' +
+                    '                  <img class="profile-user-img img-fluid img-circle rotate"\n' +
+                    '                       src="dist/img/zk.jpg"\n' +
+                    '                       alt="User profile picture">\n' +
+                    '                </div>\n' +
+                    '\n' +
+                    '                <h3 class="profile-username text-center">'+ key +'</h3>\n' +
+                    '\n' +
+                    '                <p class="text-muted text-center">'+ "节点名称" +'</p>\n' +
+                    '\n' +
+                    '                <ul class="list-group list-group-unbordered mb-3">\n' +
+                    '                  <li class="list-group-item">\n' +
+                    '                    <b>节点角色</b> <a class="badge bg-info float-right">'+ zkInfo[key].role +'</a>\n' +
+                    '                  </li>\n' +
+                    '                  <li class="list-group-item">\n' +
+                    '                    <b>节点状态</b> <a class="badge bg-success float-right" >'+ zkInfo[key].status +'</a>\n' +
+                    '                  </li>\n' +
+                    '                  <li class="list-group-item">\n' +
+                    '                    <b>服务器类型</b> <a class="badge bg-secondary float-right">'+ zkInfo[key].osname +'</a>\n' +
+                    '                  </li>\n' +
+                    '                  <li class="list-group-item">\n' +
+                    '                    <b>服务器版本</b> <a class="badge bg-light float-right">'+ zkInfo[key].osversion +'</a>\n' +
+                    '                  </li>\n' +
+                    '                  <li class="list-group-item">\n' +
+                    '                    <b>服务器架构</b> <a class="badge bg-primary float-right">'+ zkInfo[key].osarch +'</a>\n' +
+                    '                  </li>\n' +
+                    '                </ul>\n' +
+                    '\n' +
+                    '              </div>\n' +
+                    '              <!-- /.card-body -->\n' +
+                    '            </div>\n' +
+                    '            <!-- /.card -->\n' +
+                    '            <!-- /.card -->\n' +
+                    '          </div>'
+                );
+
+
+            }
+        }
+    });
+    }
+    getZkInfo();
+</script>
+
+<script>
+
+    function getEsInfo(){
+        $.ajax({
+            url: "/getEsInfo",
+            type: "post",
+            async: false,
+            dataType: "json",
+            success: function (esInfo) {
+                console.log("getEsInfo"+esInfo);
+                var length = 0;
+                var div = $("#zkInfo");
+                for(var ever in esInfo.indexinfo){
+                    length++;
+                }
+                div.append('<div class="col-md-3">\n' +
+                    '\n' +
+                    '            <!-- Profile Image -->\n' +
+                    '            <div class="card card-primary card-outline">\n' +
+                    '              <div class="card-body box-profile">\n' +
+                    '                <div class="text-center">\n' +
+                    '                  <img class="profile-user-img img-fluid img-circle rotate"\n' +
+                    '                       src="dist/img/es.png"\n' +
+                    '                       alt="User profile picture">\n' +
+                    '                </div>\n' +
+                    '\n' +
+                    '                <h3 class="profile-username text-center">' + esInfo.clusterName + '</h3>\n' +
+                    '\n' +
+                    '                <p class="text-muted text-center">' + "集群名称" + '</p>\n' +
+                    '\n' +
+                    '                <ul class="list-group list-group-unbordered mb-3">\n' +
+                    '                  <li class="list-group-item">\n' +
+                    '                    <b>节点数量</b> <a class="badge bg-info float-right">' + esInfo.nodetotal + '</a>\n' +
+                    '                  </li>\n' +
+                    '                  <li class="list-group-item">\n' +
+                    '                    <b>集群状态</b> <a class="badge bg-success float-right">' + esInfo.status + '</a>\n' +
+                    '                  </li>\n' +
+                    '                  <li class="list-group-item">\n' +
+                    '                    <b>集群版本</b> <a class="badge bg-secondary float-right">' + esInfo.esversion + '</a>\n' +
+                    '                  </li>\n' +
+                    '                  <li class="list-group-item">\n' +
+                    '                    <b>分片状态</b> <a class="badge bg-light float-right">' + esInfo.shardsHeaith + '</a>\n' +
+                    '                  </li>\n' +
+                    '                  <li class="list-group-item">\n' +
+                    '                    <b>ES Index 数量</b> <a class="badge bg-primary float-right">' + length + '</a>\n' +
+                    '                  </li>\n' +
+                    '                </ul>\n' +
+                    '\n' +
+                    '              </div>\n' +
+                    '              <!-- /.card-body -->\n' +
+                    '            </div>\n' +
+                    '            <!-- /.card -->\n' +
+                    '            <!-- /.card -->\n' +
+                    '          </div>'
+                );
+            }
+        })
+}
+
+getEsInfo();
+
+</script>
+
+<script>
+            noticeEveryFive();
+            $(document).ready(function () {
+                setInterval("noticeEveryFive()",1000*60*5);
+            });
+
+            function noticeEveryFive() {
+                $.ajax({
+                    url: "/warn/notice",
+                    type: "post",
+                    dataType: "json",
+                    success:function (data) {
+                        console.log(data);
+                        if (data.status == "warn"){
+                            layer.msg(data.reason, {
+                                icon: 3,
+                                time: 20000, //20s后自动关闭
+                                btn: ['WebShell','取消'],
+                                yes: function () {
+                                    window.location.href = 'webshell.html';
+                                },
+                                btn2:function () {
+                                    layer.close();
+                                },
+                            });
+                        }
+                    }
+                });
+            }
+
+</script>
+<script>
+    function logout() {
+        $.ajax({
+            url: "/logout",
+            type: "post",
+            dataType: "text",
+            success:function (data) {
+                layer.msg(data);
+                setTimeout(function () {
+                    window.location.href='login.html';
+                },1500);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

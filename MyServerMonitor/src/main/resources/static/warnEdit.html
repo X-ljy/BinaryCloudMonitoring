@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SeverMonitor</title>  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link href="assets/css/default.css" rel="stylesheet" />
+  <link rel="stylesheet" href="dist/css/alibaba/iconfont.css">
+
+  <!--引入layui-->
+  <script  src="dist/js/layui/layui.all.js"></script>
+  <link rel="stylesheet" href="dist/js/layui/css/layui.css">
+
+</head>
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="index.html" class="nav-link">Home</a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" onclick="logout()">
+          <i class="fa fa-lg fa-sign-out"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
+                class="fa fa-lg fa-th-large"></i></a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" id="SideBar">
+    <!-- Brand Logo -->
+    <a href="index.html" class="brand-link">
+      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">Binary</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="dist/img/avatar04.png" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">管理员</a>
+          <a href="accountset.html" class="d-block" id="account" >账号设置</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li  class="nav-item" >
+            <a href="index.html" class="nav-link"id="index">
+              <i class="fa fa-dashboard nav-icon"></i>
+              <p>首页</p>
+            </a>
+          </li>
+
+          <li  class="nav-item" >
+            <a href="hostlist.html" class="nav-link" id="hostList">
+              <i class="fa fa-server nav-icon"></i>
+              <p>服务器列表</p>
+            </a>
+          </li>
+
+          <li  class="nav-item" >
+            <a href="imagelist.html" class="nav-link" id="imageList">
+              <i class="fa fa-bullseye nav-icon"></i>
+              <p>镜像管理</p>
+            </a>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="" class="nav-link" id="monitor">
+              <i class="nav-icon fa fa-eye"></i>
+              <p>
+                <i class="right fa fa-angle-left"></i>
+                服务器监控
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="basehostlist.html" class="nav-link" id="baseMonitor">
+                  <i class="fa fa-tag nav-icon"></i>
+                  <p>基础性能监控</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="prochostlist.html" class="nav-link" id="processMonitor">
+                  <i class="fa fa-tag nav-icon"></i>
+                  <p>进程监控</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="" class="nav-link" id="appmonitor">
+              <i class="nav-icon fa fa-cubes"></i>
+              <p>
+                <i class="right fa fa-angle-left"></i>
+                应用服务监控
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="mysqlMonitor.html" class="nav-link" id="MysqlMonitor">
+                  <i class="fa fa-tag nav-icon"></i>
+                  <p>MySQL性能监控</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javaMonitor.html" class="nav-link" id="javaMonitor">
+                  <i class="fa fa-tag nav-icon"></i>
+                  <p>Tomcat性能监控</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="javaThread.html" class="nav-link" id="threadMonitor">
+                  <i class="fa fa-tag nav-icon"></i>
+                  <p>JVM线程信息</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li  class="nav-item" >
+            <a href="network.html" class="nav-link" id="network">
+              <i class="fa fa-rss nav-icon"></i>
+              <p>网络管理</p>
+            </a>
+          </li>
+
+          <li  class="nav-item" >
+            <a href="storage.html" class="nav-link" id="storage">
+              <i class="fa fa-database nav-icon"></i>
+              <p>存储管理</p>
+            </a>
+          </li>
+          <li  class="nav-item" >
+            <a href="snap.html" class="nav-link" id="snap">
+              <i class="fa fa-camera nav-icon"></i>
+              <p>快照管理</p>
+            </a>
+          </li>
+          <li  class="nav-item" >
+            <a href="logmanager.html" class="nav-link" id="logImport">
+              <i class="fa fa-cloud-download nav-icon"></i>
+              <p>日志管理</p>
+            </a>
+          </li>
+          <li  class="nav-item" >
+            <a href="firewalllist.html" class="nav-link" id="firewalllist">
+              <i class="fa fa-outdent nav-icon"></i>
+              <p>防火墙</p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="" class="nav-link" id="monitor1">
+              <i class="nav-icon fa fa-bell"></i>
+              <p>
+                <i class="right fa fa-angle-left"></i>
+                监控告警
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="ruleslist.html" class="nav-link" id="ruleList">
+                  <i class="fa fa-tag nav-icon"></i>
+                  <p>告警规则</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="rulesRecord.html" class="nav-link" id="ruleRecord">
+                  <i class="fa fa-tag nav-icon"></i>
+                  <p>告警记录</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li  class="nav-item" >
+            <a href="webshell.html" class="nav-link" id="webshell">
+              <i class="fa fa-gears nav-icon"></i>
+              <p>WebShell</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>告警设置</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="index.html">首页</a></li>
+              <li class="breadcrumb-item active">告警设置</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <form class="form-horizontal" id="creatWarnRule">
+        <div class="card-body">
+          <div class="form-group">
+
+
+            <div class="card">
+              <div class="card-header border-transparent">
+                <h3 class="card-title">名称&主机</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-widget="remove">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                  <div class="row">
+
+                      <div class="col-sm-4">
+                          <label for="name" class="col-sm-4 control-label">规则名称</label>
+                          <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                      </div>
+
+
+                      <div class="col-sm-4">
+                          <label for="hostId" class="col-sm-4 control-label">主机</label>
+                          <select class="form-control select2" id="hostId" name="hostId" style="width: 100%;">
+
+                          </select>
+                      </div>
+                  </div>
+
+                <!-- /.table-responsive -->
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+
+              </div>
+            </div>
+
+          </div>
+
+
+
+          <div class="form-group">
+            <div class="card">
+              <div class="card-header border-transparent">
+                <h3 class="card-title">告警策略</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-widget="remove">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table id="imageinfo" class="table table-bordered table-hover" >
+                  <thead>
+                  <tr>
+                    <th >监控项</th>
+                    <th>统计方法</th>
+                    <th style="width: 150px">操作</th>
+                  </tr>
+                  </thead>
+                  <tbody id="test">
+                  <tr>
+                    <th>
+                      <select class="form-control select2" id="option0" name="option0" style="width: 100%;">
+                        <option selected="selected" value="cpuUsed">CPU使用率 %</option>
+                        <option value="memoryUsed">内存使用率 %</option>
+                        <option value="diskUsed">磁盘使用率 %</option>
+                        <option value="readIoUsed">磁盘IO读取 Bytes/秒</option>
+                        <option value="writeIoUsed">磁盘IO写入 Bytes/秒</option>
+                        <option value="readIopsUsed">磁盘IOPS读取 次/秒</option>
+                        <option value="writeIopsUsed">磁盘IOPS写入 次/秒</option>
+                        <option value="inflow">流入速率 Kbps</option>
+                        <option value="outflow">流出速率 Kbps</option>
+                      </select>
+                    </th>
+                    <th>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <select class="form-control select2" id="typeName0" name="typeName0" style="width: 100%;">
+                            <option selected="selected" value="average">平均值</option>
+                            <option value="min">最小值</option>
+                            <option value="max">最大值</option>
+                          </select>
+                        </div>
+                        <div class="col-sm-4">
+                          <select class="form-control select2" id="typeMethod0" name="typeMethod0" style="width: 100%;">
+                            <option selected="selected" value="geq">>=</option>
+                            <option value="leq"><=</option>
+                            <option value="eq">=</option>
+                          </select>
+                        </div>
+                        <div class="col-sm-4">
+                          <input type="text" class="form-control" name="typeValue0" id="typeValue0" placeholder="value">
+                        </div>
+                      </div>
+                    </th>
+                    <th >
+                        <input type="text" class="form-control" name="strategyNum" id="strategyNum" placeholder="value" style="display: none">
+                    </th>
+                  </tr>
+
+                  </tbody>
+                </table>
+
+                <div align="center">
+                  <button type="button" onclick="test()" style="align-content: center; width: 50%" class="btn btn-block btn-primary"><i class="fa fa-plus-circle"> </i> 添加策略</button>
+                </div>
+
+                <!-- /.table-responsive -->
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+
+              </div>
+              <!-- /.card-footer -->
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="card">
+              <div class="card-header border-transparent">
+                <h3 class="card-title">告警行为</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-widget="remove">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table id="" class="table table-bordered table-hover" >
+                  <thead>
+                  <tr>
+                    <th >出发条件</th>
+                    <th>统计周期</th>
+                    <th>命中次数</th>
+                    <th>最大告警次数</th>
+                    <th>告警级别</th>
+                    <th>通知方式</th>
+                  </tr>
+                  </thead>
+                  <tbody id="behavior">
+                  <tr>
+                    <th>
+                      <div class="form-check">
+                        <label class="form-check-label" for="exampleRadios1">
+                          <input class="form-check-input" type="radio" name="trem" id="exampleRadios1" value="and" checked>
+                          全部满足
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <label class="form-check-label" for="exampleRadios2">
+                          <input class="form-check-input" type="radio" name="trem" id="exampleRadios2" value="or">
+                          满足任意一个
+                        </label>
+                      </div>
+                    </th>
+                    <th>
+                      <select class="form-control select2" id="cycle" name="cycle" style="width: 100%;">
+                        <option selected="selected" value="1">1分钟</option>
+                        <option value="5">5分钟</option>
+                        <option value="20">20分钟</option>
+                        <option value="60">60分钟</option>
+                      </select>
+                    </th>
+                    <th>
+                      <input type="text" class="form-control" name="hitcounts" id="hitcounts" placeholder="value">
+                    </th>
+                    <th>
+                      <input type="text" class="form-control" name="alarmtimes" id="alarmtimes" placeholder="value">
+                    </th>
+                    <th>
+                      <select class="form-control select2" id="level" name="level" style="width: 100%;">
+                        <option value="urgent" selected="selected">紧急</option>
+                        <option value="remind">提醒</option>
+                        <option value="important">重要</option>
+                      </select>
+                    </th>
+                    <th>
+                      <select class="form-control select2" id="noticeType" name="noticeType" style="width: 100%;">
+                        <option value="no" selected="selected">不通知</option>
+                        <option value="email">邮件通知</option>
+                      </select>
+                    </th>
+                  </tr>
+                  </tbody>
+                </table>
+
+                <!-- /.table-responsive -->
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+
+              </div>
+              <!-- /.card-footer -->
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="card">
+              <div class="card-header border-transparent">
+                <h3 class="card-title">告警联系人</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-widget="remove">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table id="aaa" class="table table-bordered table-hover" >
+                  <thead>
+                  <tr>
+                    <th >告警邮箱1</th>
+                    <th>告警邮箱2</th>
+                    <th>告警邮箱3</th>
+                    <th>告警邮箱4</th>
+                    <th>告警邮箱5</th>
+                    <th>告警邮箱6</th>
+                  </tr>
+                  </thead>
+                  <tbody id="email">
+                  <tr>
+                    <th>
+                      <input type="email" class="form-control" name="email1" id="email1" placeholder="value">
+                    </th>
+                    <th>
+                      <input type="email" class="form-control" name="email2" id="email2" placeholder="value">
+                    </th>
+                    <th>
+                      <input type="email" class="form-control" name="email3" id="email3" placeholder="value">
+                    </th>
+                    <th>
+                      <input type="email" class="form-control" name="email4" id="email4" placeholder="value">
+                    </th>
+                    <th>
+                      <input type="email" class="form-control" name="email5" id="email5" placeholder="value">
+                    </th>
+                    <th>
+                      <input type="email" class="form-control" name="email6" id="email6" placeholder="value">
+                    </th>
+                  </tr>
+                  </tbody>
+                </table>
+
+                <!-- /.table-responsive -->
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+
+              </div>
+              <!-- /.card-footer -->
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+            <button type="button"  style="width: 65px;height: 37px" onclick="testForm()" class="btn btn-primary ">提交</button>
+            <button type="button"  style="width: 65px;height: 37px"  data-dismiss="modal" class="btn btn-primary ">取消</button>
+          </div>
+
+        </div>
+        <!-- /.card-body -->
+        <!-- /.card-footer -->
+      </form>
+
+      <!-- TABLE: LATEST ORDERS -->
+        <div class="row" id="content-header">
+
+        </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- SlimScroll -->
+<script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+
+<script>
+
+    function getHostId() {
+
+        $.ajax({
+            url: "/getHostId",
+            type: "post",
+            async: false,
+            datatype: "json",
+            success: function (array) {
+                console.log(array);
+                var select = $("#hostId");
+                for (var i = 0;i < array.length;i ++){
+                    select.append(
+                        '<option value="'+ array[i] +'">'+ array[i] +'</option>'
+                    )
+                }
+        }
+        });
+    }
+    getHostId();
+
+</script>
+
+<script>
+  function getRule() {
+      
+  }
+</script>
+
+<script>
+  var add = 1;
+  function test() {
+      var table = $("#test");
+      table.append(
+          '<tr id="'+ add +'">\n' +
+          '              <th>\n' +
+          '                <select class="form-control select2" id="option'+ add +'" name="option'+ add +'" style="width: 100%;">' +
+          '                        <option value="cpuUsed" selected="selected">CPU使用率 %</option>\n' +
+          '                        <option value="memoryUsed">内存使用率 %</option>\n' +
+          '                        <option value="diskUsed">磁盘使用率 %</option>\n' +
+          '                        <option value="readIoUsed">磁盘IO读取 Bytes/秒</option>\n' +
+          '                        <option value="writeIoUsed">磁盘IO写入 Bytes/秒</option>\n' +
+          '                        <option value="readIopsUsed">磁盘IOPS读取 次/秒</option>\n' +
+          '                        <option value="writeIopsUsed">磁盘IOPS写入 次/秒</option>\n' +
+          '                        <option value="inflow">流入速率 Kbps</option>\n' +
+          '                        <option value="outflow">流出速率 Kbps</option>' +
+          '                </select>\n' +
+          '              </th>\n' +
+          '              <th>\n' +
+          '                <div class="row">\n' +
+          '                  <div class="col-sm-4">\n' +
+          '                    <select class="form-control select2" id="typeName'+ add +'" name="typeName'+ add +'" style="width: 100%;">' +
+          '                            <option value="average" selected="selected">平均值</option>\n' +
+          '                            <option value="min">最小值</option>\n' +
+          '                            <option value="max">最大值</option>' +
+          '                    </select>\n' +
+          '                  </div>\n' +
+          '                  <div class="col-sm-4">\n' +
+          '                    <select class="form-control select2" id="typeMethod'+ add +'" name="typeMethod'+ add +'" style="width: 100%;">' +
+          '                            <option value="geq" selected="selected">>=</option>\n' +
+          '                            <option value="leq"><=</option>\n' +
+          '                            <option value="eq">=</option>' +
+          '                    </select>\n' +
+          '                  </div>\n' +
+          '                  <div class="col-sm-4">\n' +
+          '                     <input type="text" class="form-control" name="typeValue'+ add +'" id="typeValue'+ add +'" placeholder="value">' +
+          '                </div>\n' +
+          '\n' +
+          '                </div>\n' +
+          '\n' +
+          '\n' +
+          '              </th>\n' +
+          '              <th>\n' +
+          '<button type="button" style="width: 110px" onclick="testDel()" class="btn btn-block btn-primary"><i class="fa fa-minus-square" > </i> 删除策略</button>' +
+          '              </th>\n' +
+          '            </tr>'
+      );
+      add = add +1;
+      document.getElementById('strategyNum').value = add;
+  }
+
+  function testDel() {
+      add = add - 1;
+      document.getElementById(add).remove();
+      document.getElementById('strategyNum').value = add;
+
+  }
+  
+
+  
+</script>
+
+
+<script>
+    noticeEveryFive();
+    $(document).ready(function () {
+        setInterval("noticeEveryFive()",1000*60*5);
+    });
+
+    function noticeEveryFive() {
+        $.ajax({
+            url: "/warn/notice",
+            type: "post",
+            dataType: "json",
+            success:function (data) {
+                console.log(data);
+                if (data.status == "warn"){
+                    layer.msg(data.reason, {
+                        icon: 3,
+                        time: 20000, //20s后自动关闭
+                        btn: ['WebShell','取消'],
+                        yes: function () {
+                            window.location.href = 'webshell.html';
+                        },
+                        btn2:function () {
+                            layer.close();
+                        },
+                    });
+                }
+            }
+        });
+    }
+
+</script>
+
+<script>
+    function logout() {
+        $.ajax({
+            url: "/logout",
+            type: "post",
+            dataType: "text",
+            success:function (data) {
+                layer.msg(data);
+                setTimeout(function () {
+                    window.location.href='login.html';
+                },1500);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
